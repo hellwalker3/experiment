@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EXP-002: ステップシーケンサー</title>
+  <script src="https://unpkg.com/tone@14/build/Tone.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: monospace;
+      background: #0d0d0d;
+      color: #e0e0e0;
+      padding: 24px 20px;
+      min-height: 100vh;
+    }
+
+    a.back { color: #888; text-decoration: none; font-size: 0.85em; }
+    a.back:hover { color: #aaa; }
+
+    h1 { color: #7fff7f; margin: 12px 0 4px; }
+    p.sub { color: #666; font-size: 0.85em; margin-bottom: 20px; }
+
+    /* --- transport --- */
+    #transport {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    button {
+      background: #1a1a1a;
+      border: 1px solid #444;
+      color: #e0e0e0;
+      padding: 7px 18px;
+      cursor: pointer;
+      font-family: monospace;
+      border-radius: 4px;
+      font-size: 0.95em;
+    }
+    button:hover { background: #2a2a2a; }
+    button.active { background: #1a3a1a; border-color: #7fff7f; color: #7fff7f; }
+
+    label { color: #888; font-size: 0.85em; }
+    input[type=range] { width: 100px; accent-color: #7fff7f; }
+    select {
+      background: #1a1a1a;
+      border: 1px solid #444;
+      color: #e0e0e0;
+      padding: 5px 8px;
+      font-family: monospace;
+      border-radius: 4px;
+    }
+
+    /* --- grid --- */
+    #grid-wrap {
+      overflow-x: auto;
+      margin-bottom: 20px;
+    }
+    #grid {
+      display: grid;
+      grid-template-columns: 60px repeat(16, 36px);
+      gap: 3px;
+      min-width: max-content;
+    }
+
+    .row-label {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 8px;
+      font-size: 0.8em;
+      color: #888;
+      height: 34px;
+    }
+    .row-label.chord { color: #7fc8ff; }
+
+    .cell {
+      width: 36px;
+      height: 34px;
+      border-radius: 4px;
+      border: 1px solid #2a2a2a;
+      background: #141414;
+      cursor: pointer;
+      transition: background 0.05s;
+    }
+    .cell:hover { background: #222; }
+    .cell.on { background: #3a7a3a; border-color: #7fff7f; }
+    .cell.playing { background: #7fff7f !important; border-color: #fff; }
+    .cell.beat-1 { border-left-color: #444; }
+
+    /* --- chord row --- */
+    .chord-cell {
+      width: 36px;
+      height: 34px;
+      border-radius: 4px;
+      border: 1px solid #1a2a3a;
+      background: #0a1520;
+      cursor: pointer;
+      font-size: 0.7em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #555;
+      transition: background 0.05s;
+    }
+    .chord-cell:hover { background: #111e2a; }
+    .chord-cell.on {
+      background: #0a2040;
+      border-color: #7fc8ff;
+      color: #7fc8ff;
+    }
+    .chord-cell.playing { background: #7fc8ff !important; color: #000; }
+
+    /* --- step indicator --- */
+    #step-row {
+      display: grid;
+      grid-template-columns: 60px repeat(16, 36px);
+      gap: 3px;
+      margin-bottom: 6px;
+      min-width: max-content;
+    }
+    .step-num {
+      width: 36px;
+      text-align: center;
+      font-size: 0.7em;
+      color: #333;
+    }
+    .step-num.beat { color: #555; }
+
+    /* --- chord picker --- */
+    #chord-picker {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .chord-btn {
+      font-size: 0.8em;
+      padding: 4px 10px;
+    }
+
+    /* --- status --- */
+    #status { color: #555; font-size: 0.8em; margin-top: 8px; }
+  </style>
+</head>
+<body>
+  <a class="back" href="../../index.html">← 実験一覧</a>
+  <h1>EXP-002: ステップシーケンサー</h1>
+  <p class="sub">16ステップ × 8音程。クリックでノートをオン/オフ、再生で音楽を作る。</p>
+
+  <!-- transport -->
+  <div id="transport">
+    <button id="btn-play">▶ 再生</button>
+    <button id="btn-stop">■ 停止</button>
+    <button id="btn-clear">✕ クリア</button>
+    <label>BPM <input type="range" id="bpm" min="60" max="200" value="120">
+      <span id="bpm-val">120</span></label>
+    <label>音源
+      <select id="synth-type">
+        <option value="synth">シンセ</option>
+        <option value="piano">ピアノ</option>
+        <option value="bass">ベース</option>
+      </select>
+    </label>
+    <label>リバーブ <input type="range" id="reverb" min="0" max="10" value="3">
+      <span id="reverb-val">3</span></label>
+  </div>
+
+  <!-- chord picker -->
+  <div>
+    <span style="color:#666;font-size:0.8em;margin-right:8px;">コード行に貼る:</span>
+    <div id="chord-picker"></div>
+  </div>
+
+  <!-- grid -->
+  <div id="grid-wrap">
+    <div id="step-row"></div>
+    <div id="grid"></div>
+  </div>
+
+  <div id="status">停止中</div>
+
+  <script>
+  // ---- 設定 ----
+  const STEPS = 16;
+  const NOTES = ["C5","B4","A4","G4","F4","E4","D4","C4"];
+  const NOTE_LABELS = ["C5","B4","A4","G4","F4","E4","D4","C4"];
+
+  const CHORD_OPTIONS = [
+    { name:"Am", notes:["A3","C4","E4"] },
+    { name:"F",  notes:["F3","A3","C4"] },
+    { name:"C",  notes:["C3","E3","G3"] },
+    { name:"G",  notes:["G3","B3","D4"] },
+    { name:"Dm", notes:["D3","F3","A3"] },
+    { name:"Em", notes:["E3","G3","B3"] },
+    { name:"E",  notes:["E3","G#3","B3"] },
+  ];
+
+  // ---- 状態 ----
+  // grid[row][step] = true/false
+  const grid = Array.from({length: NOTES.length}, () => new Array(STEPS).fill(false));
+  // chordGrid[step] = chord name or null
+  const chordGrid = new Array(STEPS).fill(null);
+  let currentStep = -1;
+  let playing = false;
+  let sequence = null;
+  let melSynth = null, chordSynth = null, reverb = null;
+  let selectedChord = CHORD_OPTIONS[0];
+
+  // ---- DOM 構築 ----
+  function buildStepRow() {
+    const row = document.getElementById("step-row");
+    row.innerHTML = "";
+    const spacer = document.createElement("div");
+    row.appendChild(spacer);
+    for (let s = 0; s < STEPS; s++) {
+      const d = document.createElement("div");
+      d.className = "step-num" + (s % 4 === 0 ? " beat" : "");
+      d.textContent = s % 4 === 0 ? (s/4+1) : "·";
+      row.appendChild(d);
+    }
+  }
+
+  function buildGrid() {
+    const g = document.getElementById("grid");
+    g.innerHTML = "";
+
+    // melody rows
+    NOTES.forEach((note, row) => {
+      const label = document.createElement("div");
+      label.className = "row-label";
+      label.textContent = NOTE_LABELS[row];
+      g.appendChild(label);
+
+      for (let s = 0; s < STEPS; s++) {
+        const cell = document.createElement("div");
+        cell.className = "cell" + (s % 4 === 0 ? " beat-1" : "");
+        cell.dataset.row = row;
+        cell.dataset.step = s;
+        cell.addEventListener("click", () => toggleCell(row, s));
+        g.appendChild(cell);
+      }
+    });
+
+    // chord row
+    const clabel = document.createElement("div");
+    clabel.className = "row-label chord";
+    clabel.textContent = "コード";
+    g.appendChild(clabel);
+
+    for (let s = 0; s < STEPS; s++) {
+      const cell = document.createElement("div");
+      cell.className = "chord-cell" + (s % 4 === 0 ? " beat-1" : "");
+      cell.dataset.step = s;
+      cell.addEventListener("click", () => toggleChordCell(s));
+      g.appendChild(cell);
+    }
+  }
+
+  function buildChordPicker() {
+    const picker = document.getElementById("chord-picker");
+    CHORD_OPTIONS.forEach(c => {
+      const btn = document.createElement("button");
+      btn.className = "chord-btn" + (c === selectedChord ? " active" : "");
+      btn.textContent = c.name;
+      btn.addEventListener("click", () => {
+        selectedChord = c;
+        document.querySelectorAll(".chord-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+      });
+      picker.appendChild(btn);
+    });
+  }
+
+  function toggleCell(row, step) {
+    grid[row][step] = !grid[row][step];
+    refreshCell(row, step);
+  }
+
+  function toggleChordCell(step) {
+    if (chordGrid[step] === selectedChord.name) {
+      chordGrid[step] = null;
+    } else {
+      chordGrid[step] = selectedChord.name;
+    }
+    refreshChordCell(step);
+  }
+
+  function refreshCell(row, step) {
+    const el = document.querySelector(`.cell[data-row="${row}"][data-step="${step}"]`);
+    if (!el) return;
+    el.classList.toggle("on", grid[row][step]);
+  }
+
+  function refreshChordCell(step) {
+    const el = document.querySelector(`.chord-cell[data-step="${step}"]`);
+    if (!el) return;
+    const name = chordGrid[step];
+    el.classList.toggle("on", !!name);
+    el.textContent = name || "";
+  }
+
+  function setStep(s) {
+    // 前のステップのハイライトを消す
+    if (currentStep >= 0) {
+      NOTES.forEach((_, row) => {
+        const el = document.querySelector(`.cell[data-row="${row}"][data-step="${currentStep}"]`);
+        if (el) el.classList.remove("playing");
+      });
+      const ce = document.querySelector(`.chord-cell[data-step="${currentStep}"]`);
+      if (ce) ce.classList.remove("playing");
+    }
+    currentStep = s;
+    if (s < 0) return;
+    NOTES.forEach((_, row) => {
+      const el = document.querySelector(`.cell[data-row="${row}"][data-step="${s}"]`);
+      if (el) el.classList.add("playing");
+    });
+    const ce = document.querySelector(`.chord-cell[data-step="${s}"]`);
+    if (ce) ce.classList.add("playing");
+  }
+
+  // ---- シンセ構築 ----
+  function buildSynths() {
+    if (reverb) reverb.dispose();
+    reverb = new Tone.Reverb({ decay: 1.5, wet: getReverbWet() }).toDestination();
+
+    const type = document.getElementById("synth-type").value;
+
+    if (melSynth) melSynth.dispose();
+    if (type === "synth") {
+      melSynth = new Tone.Synth({
+        oscillator: { type: "triangle" },
+        envelope: { attack: 0.02, decay: 0.1, sustain: 0.5, release: 0.3 },
+      }).connect(reverb);
+    } else if (type === "piano") {
+      melSynth = new Tone.Synth({
+        oscillator: { type: "sine" },
+        envelope: { attack: 0.005, decay: 0.3, sustain: 0.1, release: 1.0 },
+      }).connect(reverb);
+    } else {
+      melSynth = new Tone.Synth({
+        oscillator: { type: "sawtooth" },
+        envelope: { attack: 0.01, decay: 0.2, sustain: 0.6, release: 0.2 },
+        frequency: 110,
+      }).connect(reverb);
+    }
+
+    if (chordSynth) chordSynth.dispose();
+    chordSynth = new Tone.PolySynth(Tone.Synth, {
+      oscillator: { type: "sine" },
+      envelope: { attack: 0.08, decay: 0.2, sustain: 0.5, release: 0.8 },
+      volume: -6,
+    }).connect(reverb);
+  }
+
+  function getReverbWet() {
+    return document.getElementById("reverb").value / 10;
+  }
+
+  // ---- 再生 ----
+  async function startPlayback() {
+    await Tone.start();
+    Tone.Transport.bpm.value = parseInt(document.getElementById("bpm").value);
+
+    buildSynths();
+
+    let step = 0;
+    sequence = new Tone.Sequence(
+      (time) => {
+        const s = step;
+        Tone.getDraw().schedule(() => setStep(s), time);
+
+        // メロディ
+        NOTES.forEach((note, row) => {
+          if (grid[row][s]) {
+            melSynth.triggerAttackRelease(note, "8n", time);
+          }
+        });
+
+        // コード
+        const chordName = chordGrid[s];
+        if (chordName) {
+          const c = CHORD_OPTIONS.find(x => x.name === chordName);
+          if (c) chordSynth.triggerAttackRelease(c.notes, "4n", time);
+        }
+
+        step = (step + 1) % STEPS;
+      },
+      [...Array(STEPS).keys()],
+      "16n"
+    );
+
+    sequence.start(0);
+    Tone.Transport.start();
+    playing = true;
+    document.getElementById("btn-play").classList.add("active");
+    document.getElementById("status").textContent = "再生中 ▶";
+  }
+
+  function stopPlayback() {
+    playing = false;
+    if (sequence) { sequence.stop(); sequence.dispose(); sequence = null; }
+    Tone.Transport.stop();
+    setStep(-1);
+    document.getElementById("btn-play").classList.remove("active");
+    document.getElementById("status").textContent = "停止中";
+  }
+
+  function clearGrid() {
+    for (let r = 0; r < NOTES.length; r++)
+      for (let s = 0; s < STEPS; s++) { grid[r][s] = false; refreshCell(r, s); }
+    for (let s = 0; s < STEPS; s++) { chordGrid[s] = null; refreshChordCell(s); }
+  }
+
+  // ---- イベント ----
+  document.getElementById("btn-play").addEventListener("click", () => {
+    if (!playing) startPlayback();
+  });
+  document.getElementById("btn-stop").addEventListener("click", stopPlayback);
+  document.getElementById("btn-clear").addEventListener("click", clearGrid);
+
+  document.getElementById("bpm").addEventListener("input", function() {
+    document.getElementById("bpm-val").textContent = this.value;
+    Tone.Transport.bpm.value = parseInt(this.value);
+  });
+
+  document.getElementById("reverb").addEventListener("input", function() {
+    document.getElementById("reverb-val").textContent = this.value;
+    if (reverb) reverb.wet.value = getReverbWet();
+  });
+
+  document.getElementById("synth-type").addEventListener("change", () => {
+    if (playing) { stopPlayback(); startPlayback(); }
+  });
+
+  // ---- デフォルトパターン (Am - F - C - G っぽいメロ) ----
+  function loadDefault() {
+    // シンプルなメロディ
+    const defaults = [
+      [0,false],[0,true],[1,false],[2,true],[2,false],[3,true],[3,false],[4,true],
+      [4,false],[4,true],[3,false],[2,true],[1,false],[1,true],[0,false],[0,true],
+    ];
+    // row 4 = F4 ライン
+    [2,6,10,14].forEach(s => { grid[4][s] = true; refreshCell(4, s); });
+    [0,4,8,12].forEach(s => { grid[5][s] = true; refreshCell(5, s); });
+    [1,5,9,13].forEach(s => { grid[3][s] = true; refreshCell(3, s); });
+
+    // コード
+    const pattern = ["Am","Am","Am","Am","F","F","F","F","C","C","C","C","G","G","G","G"];
+    pattern.forEach((name, s) => {
+      if (s % 4 === 0) { chordGrid[s] = name; refreshChordCell(s); }
+    });
+  }
+
+  // ---- 初期化 ----
+  buildStepRow();
+  buildGrid();
+  buildChordPicker();
+  loadDefault();
+  </script>
+</body>
+</html>
