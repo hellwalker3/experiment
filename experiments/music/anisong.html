@@ -76,7 +76,7 @@
 
 <div id="meters">
   <div class="mc"><div class="mw"><div class="mf p" id="mv-vocal"></div></div><div class="ml">vocal</div></div>
-  <div class="mc"><div class="mw"><div class="mf b" id="mv-piano"></div></div><div class="ml">piano</div></div>
+  <div class="mc"><div class="mw"><div class="mf b" id="mv-lead"></div></div><div class="ml">lead</div></div>
   <div class="mc"><div class="mw"><div class="mf c" id="mv-vln"></div></div><div class="ml">violin</div></div>
   <div class="mc"><div class="mw"><div class="mf y" id="mv-bass"></div></div><div class="ml">bass</div></div>
   <div class="mc"><div class="mw"><div class="mf g" id="mv-sub"></div></div><div class="ml">sub</div></div>
@@ -408,7 +408,7 @@ function updateChordDisplay(bar) {
    オーディオグラフ（async）
    ══════════════════════════════════════════ */
 const LOOP_END = '16m';
-const TRACKS   = ['vocal','piano','violin','bass','sub','drum'];
+const TRACKS   = ['vocal','lead','violin','bass','sub','drum'];
 const muteState = Object.fromEntries(TRACKS.map(t=>[t,false]));
 const flashLvl  = Object.fromEntries(TRACKS.map(t=>[t,0]));
 
@@ -428,32 +428,26 @@ async function buildAudio() {
 
   // センドバス（Reverb IR を並列生成）
   setStatus('リバーブ生成中...');
-  const [room, hall, sht] = await Promise.all([
+  const [room, hall, sht, leadRev] = await Promise.all([
     new Tone.Reverb({decay:1.8, wet:0.20}).generate(),
     new Tone.Reverb({decay:4.0, wet:0.28}).generate(),
     new Tone.Reverb({decay:0.4, wet:0.16}).generate(),
+    new Tone.Reverb({decay:1.5, wet:0.18}).generate(),
   ]);
-  room.connect(comp); hall.connect(comp); sht.connect(comp);
+  room.connect(comp); hall.connect(comp); sht.connect(comp); leadRev.connect(comp);
 
   // ── ボカロ ──
   const vGain = new Tone.Gain(1.0).connect(room);
   synths.vocal = new FormantSynth(actx, vGain.input);
 
-  // ── ピアノ（Salamander サンプラー）──
-  setStatus('ピアノ読込中...');
-  const pianoRev = new Tone.Reverb({decay:1.5, wet:0.15});
-  await pianoRev.generate();
-  pianoRev.connect(comp);
-  synths.piano = new Tone.Sampler({
-    urls: {
-      'A3':'A3.mp3','C4':'C4.mp3','D#4':'Ds4.mp3',
-      'F#4':'Fs4.mp3','A4':'A4.mp3','C5':'C5.mp3',
-      'D#5':'Ds5.mp3','F#5':'Fs5.mp3','A5':'A5.mp3',
-    },
-    release: 1.2,
-    baseUrl: 'https://tonejs.github.io/audio/salamander/',
-  }).connect(pianoRev);
-  await Tone.loaded(); // サンプル読み込み完了まで待機
+  // ── シンセリード（sawtooth → LPF → chorus → reverb）──
+  const leadChorus = new Tone.Chorus({frequency:3.8,delayTime:2.5,depth:0.42,wet:0.32}).start().connect(leadRev);
+  const leadFilter = new Tone.Filter({frequency:3800,type:'lowpass',rolloff:-12}).connect(leadChorus);
+  synths.lead = new Tone.Synth({
+    oscillator:{type:'sawtooth'},
+    envelope:{attack:0.006,decay:0.10,sustain:0.68,release:0.25},
+    volume:-8,
+  }).connect(leadFilter);
 
   // ── バイオリン（弓弦: fatsawtooth + HP + EQ + Vibrato）──
   // fatsawtooth = 3本わずかにデチューンした鋸波 → 弦楽アンサンブル感
@@ -540,9 +534,9 @@ function buildParts() {
   });
 
   makePart(MELODY, (time,ev)=>{
-    if(muteState.piano) return;
-    synths.piano.triggerAttackRelease(ev.note,ev.dur,time);
-    Tone.getDraw().schedule(()=>{flashLvl.piano=1;},time);
+    if(muteState.lead) return;
+    synths.lead.triggerAttackRelease(ev.note,ev.dur,time);
+    Tone.getDraw().schedule(()=>{flashLvl.lead=1;},time);
   });
 
   makePart(STRINGS, (time,ev)=>{
@@ -667,7 +661,7 @@ function tick() {
   }
 
   // メーター
-  const mids={vocal:'mv-vocal',piano:'mv-piano',violin:'mv-vln',bass:'mv-bass',sub:'mv-sub',drum:'mv-drum'};
+  const mids={vocal:'mv-vocal',lead:'mv-lead',violin:'mv-vln',bass:'mv-bass',sub:'mv-sub',drum:'mv-drum'};
   TRACKS.forEach(t=>{
     flashLvl[t]=Math.max(0,flashLvl[t]-0.04);
     const el=document.getElementById(mids[t]);
@@ -686,7 +680,7 @@ for(let i=0;i<32;i++){
 
 (function(){
   const wrap=document.getElementById('mutes');
-  const lbls={vocal:'Vocal',piano:'Piano',violin:'Violin',bass:'Bass',sub:'Sub',drum:'Drum'};
+  const lbls={vocal:'Vocal',lead:'Lead',violin:'Violin',bass:'Bass',sub:'Sub',drum:'Drum'};
   TRACKS.forEach(t=>{
     const btn=document.createElement('button'); btn.className='mb on'; btn.textContent=lbls[t];
     btn.addEventListener('click',()=>{ muteState[t]=!muteState[t]; btn.classList.toggle('on',!muteState[t]); });
