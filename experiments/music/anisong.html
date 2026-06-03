@@ -15,112 +15,69 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 24px 20px 40px;
+      padding: 24px 20px 48px;
     }
-    a.back { color: #444; text-decoration: none; font-size: 0.78em; align-self: flex-start; font-family: monospace; }
-    a.back:hover { color: #888; }
+    a.back { color: #333; text-decoration: none; font-size: 0.78em; align-self: flex-start; font-family: monospace; }
+    a.back:hover { color: #777; }
     h1 { color: #ff6eb4; font-size: 1.5em; margin: 10px 0 2px; letter-spacing: 0.06em; }
-    .sub { color: #3a3a4a; font-size: 0.75em; font-family: monospace; margin-bottom: 20px; }
+    .sub { color: #2a2a3a; font-size: 0.72em; font-family: monospace; margin-bottom: 20px; }
 
-    /* ── FFT visualizer ── */
-    #viz {
-      display: flex;
-      align-items: flex-end;
-      gap: 3px;
-      height: 72px;
-      margin-bottom: 16px;
-      width: 320px;
-    }
-    .vbar {
-      flex: 1;
-      border-radius: 2px 2px 0 0;
-      background: #12122a;
-      transition: height 0.04s;
-    }
+    /* FFT visualizer */
+    #viz { display: flex; align-items: flex-end; gap: 3px; height: 72px; width: 320px; margin-bottom: 16px; }
+    .vbar { flex: 1; background: #12122a; border-radius: 2px 2px 0 0; }
 
-    /* ── chord pills ── */
-    #chord-row { display: flex; gap: 10px; margin-bottom: 18px; }
-    .cp {
-      padding: 5px 16px;
-      border-radius: 16px;
-      border: 1px solid #1a1a2e;
-      color: #333;
-      font-size: 1em;
-      font-weight: bold;
-      transition: all 0.1s;
-      min-width: 48px;
-      text-align: center;
-    }
+    /* chord pills */
+    #chord-row { display: flex; gap: 10px; margin-bottom: 16px; }
+    .cp { padding: 5px 16px; border-radius: 16px; border: 1px solid #181828; color: #252535;
+          font-size: 1em; font-weight: bold; min-width: 48px; text-align: center; transition: all 0.12s; }
     .cp.active { background: #14051e; border-color: #ff6eb4; color: #ff9fd0; box-shadow: 0 0 10px #ff6eb430; }
 
-    /* ── progress ── */
-    #prog-wrap { width: 320px; height: 2px; background: #111122; border-radius: 1px; margin-bottom: 18px; overflow: hidden; }
-    #prog { height: 100%; width: 0%; background: linear-gradient(90deg, #ff6eb4, #7eb4ff); transition: width 0.05s linear; }
+    /* progress */
+    #prog-wrap { width: 320px; height: 2px; background: #101020; border-radius: 1px; margin-bottom: 16px; overflow: hidden; }
+    #prog { height: 100%; width: 0%; background: linear-gradient(90deg, #ff6eb4, #7eb4ff); }
 
-    /* ── track meters ── */
-    #meters {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 6px;
-      width: 320px;
-      margin-bottom: 18px;
-    }
-    .meter-col { display: flex; flex-direction: column; align-items: center; gap: 3px; }
-    .meter-label { font-size: 0.6em; color: #333; font-family: monospace; }
-    .meter-bar-wrap { width: 100%; height: 40px; background: #0e0e1a; border-radius: 2px; display: flex; flex-direction: column-reverse; overflow: hidden; }
-    .meter-fill { width: 100%; height: 0%; background: #ff6eb4; transition: height 0.06s; border-radius: 0; }
-    .meter-fill.blue  { background: #6eb4ff; }
-    .meter-fill.green { background: #6effa0; }
-    .meter-fill.pink  { background: #ff6eb4; }
-    .meter-fill.gold  { background: #ffd76e; }
-    .meter-fill.cyan  { background: #6effee; }
+    /* track meters */
+    #meters { display: grid; grid-template-columns: repeat(6, 1fr); gap: 5px; width: 320px; margin-bottom: 18px; }
+    .mc { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+    .ml { font-size: 0.58em; color: #2a2a3a; font-family: monospace; }
+    .mw { width: 100%; height: 36px; background: #0d0d1a; border-radius: 2px; display: flex; flex-direction: column-reverse; overflow: hidden; }
+    .mf { width: 100%; height: 0%; transition: height 0.08s; border-radius: 0; }
+    .mf.p { background: #ff6eb4; }
+    .mf.b { background: #6eb4ff; }
+    .mf.c { background: #6effee; }
+    .mf.g { background: #6effa0; }
+    .mf.y { background: #ffe06e; }
+    .mf.w { background: #cc88ff; }
 
-    /* ── controls ── */
-    #controls { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; justify-content: center; margin-bottom: 16px; }
-    .btn {
-      padding: 9px 24px;
-      border-radius: 20px;
-      border: none;
-      cursor: pointer;
-      font-size: 0.95em;
-      font-weight: bold;
-      letter-spacing: 0.04em;
-      transition: transform 0.1s, opacity 0.1s;
-    }
+    /* controls */
+    #controls { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; justify-content: center; margin-bottom: 14px; }
+    .btn { padding: 9px 22px; border-radius: 20px; border: none; cursor: pointer;
+           font-size: 0.9em; font-weight: bold; transition: transform 0.1s, opacity 0.15s; }
     .btn:active { transform: scale(0.95); }
-    #btn-play { background: linear-gradient(135deg, #ff6eb4, #c93ea0); color: #fff; box-shadow: 0 3px 14px #ff6eb440; }
-    #btn-stop { background: #11111e; color: #666; border: 1px solid #222; }
-    label { color: #444; font-size: 0.8em; font-family: monospace; }
+    #btn-play { background: linear-gradient(135deg, #ff6eb4, #c03090); color: #fff; box-shadow: 0 3px 14px #ff6eb440; }
+    #btn-stop { background: #111122; color: #555; border: 1px solid #1e1e30; }
+    label { color: #333; font-size: 0.78em; font-family: monospace; }
     input[type=range] { accent-color: #ff6eb4; width: 80px; vertical-align: middle; }
 
-    /* ── mute toggles ── */
-    #mutes { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; justify-content: center; }
-    .mute-btn {
-      font-size: 0.7em;
-      font-family: monospace;
-      padding: 4px 10px;
-      border-radius: 10px;
-      border: 1px solid #222;
-      background: #0e0e1a;
-      color: #555;
-      cursor: pointer;
-      transition: all 0.1s;
-    }
-    .mute-btn.on { border-color: #ff6eb4; color: #ff9fd0; background: #18051e; }
+    /* mute buttons */
+    #mutes { display: flex; gap: 7px; margin-bottom: 16px; flex-wrap: wrap; justify-content: center; }
+    .mb { font-size: 0.68em; font-family: monospace; padding: 4px 10px; border-radius: 10px;
+          border: 1px solid #1a1a2a; background: #0c0c18; color: #333; cursor: pointer; transition: all 0.1s; }
+    .mb.on { border-color: #ff6eb4; color: #ff9fd0; background: #160520; }
 
-    /* ── lyrics ── */
-    #lyrics { font-size: 1.4em; letter-spacing: 0.18em; text-align: center; min-height: 1.8em; margin-bottom: 8px; }
-    .lw { transition: color 0.08s, text-shadow 0.08s; color: #2a2a3a; }
-    .lw.lit { color: #f0e0ff; text-shadow: 0 0 10px #ff6eb4cc; }
+    /* lyrics */
+    #lyrics { font-size: 1.45em; letter-spacing: 0.18em; text-align: center; min-height: 1.8em; margin-bottom: 8px; }
+    .lw { color: #1e1e2e; transition: color 0.09s, text-shadow 0.09s; }
+    .lw.lit { color: #f0e0ff; text-shadow: 0 0 12px #ff6eb4bb; }
 
-    #status { color: #22223a; font-size: 0.7em; font-family: monospace; }
+    #status { color: #1e1e2e; font-size: 0.68em; font-family: monospace; margin-top: 4px; }
   </style>
 </head>
 <body>
 
 <a class="back" href="../../index.html">← 実験一覧</a>
 <h1>EXP-003: アニソン</h1>
-<p class="sub">D major · 158 BPM · D–A–Bm–G · 7 tracks</p>
+<p class="sub">D major · 158 BPM · D–A–Bm–G · vocal+lead+strings+bass+sub+drum</p>
 
 <div id="viz"></div>
 
@@ -134,12 +91,12 @@
 <div id="prog-wrap"><div id="prog"></div></div>
 
 <div id="meters">
-  <div class="meter-col"><div class="meter-bar-wrap"><div class="meter-fill pink"  id="m-vocal"></div></div><div class="meter-label">vocal</div></div>
-  <div class="meter-col"><div class="meter-bar-wrap"><div class="meter-fill blue"  id="m-lead"></div></div><div class="meter-label">lead</div></div>
-  <div class="meter-col"><div class="meter-bar-wrap"><div class="meter-fill cyan"  id="m-str"></div></div><div class="meter-label">strings</div></div>
-  <div class="meter-col"><div class="meter-bar-wrap"><div class="meter-fill gold"  id="m-bass"></div></div><div class="meter-label">bass</div></div>
-  <div class="meter-col"><div class="meter-bar-wrap"><div class="meter-fill green" id="m-sub"></div></div><div class="meter-label">sub</div></div>
-  <div class="meter-col"><div class="meter-bar-wrap"><div class="meter-fill"       id="m-drum"></div></div><div class="meter-label">drum</div></div>
+  <div class="mc"><div class="mw"><div class="mf p" id="mv-vocal"></div></div><div class="ml">vocal</div></div>
+  <div class="mc"><div class="mw"><div class="mf b" id="mv-lead"></div></div><div class="ml">lead</div></div>
+  <div class="mc"><div class="mw"><div class="mf c" id="mv-str"></div></div><div class="ml">strings</div></div>
+  <div class="mc"><div class="mw"><div class="mf y" id="mv-bass"></div></div><div class="ml">bass</div></div>
+  <div class="mc"><div class="mw"><div class="mf g" id="mv-sub"></div></div><div class="ml">sub</div></div>
+  <div class="mc"><div class="mw"><div class="mf w" id="mv-drum"></div></div><div class="ml">drum</div></div>
 </div>
 
 <div id="controls">
@@ -147,18 +104,17 @@
   <button class="btn" id="btn-stop">■ 停止</button>
   <label>BPM <input type="range" id="sl-bpm" min="80" max="200" value="158"> <span id="bpm-val">158</span></label>
 </div>
-
 <div id="mutes"></div>
 <div id="lyrics"></div>
 <div id="status">停止中</div>
 
 <script>
-/* ════════════════════════════════════════════
-   フォルマント合成 — ボカロ声近似
-   サウ鋸波 → F1/F2/F3 バンドパスフィルタ群 → ゲインエンベロープ
-   ════════════════════════════════════════════ */
+/* ══════════════════════════════════════════
+   FormantSynth — 母音フォルマント合成（ボカロ声）
+   鋸波 → F1/F2/F3 バンドパスフィルタ → ゲインエンベロープ
+   ══════════════════════════════════════════ */
 class FormantSynth {
-  // 日本語母音の代表フォルマント周波数 [F1, F2, F3] (Hz)
+  // 日本語母音の代表フォルマント周波数 [F1, F2, F3] Hz
   static VOWELS = {
     'ア': [800, 1200, 2500],
     'イ': [280, 2700, 3100],
@@ -167,451 +123,410 @@ class FormantSynth {
     'オ': [500,  800, 2500],
   };
 
-  constructor(actx, destination, volume = 0.22) {
+  // destination は生の AudioNode (例: Tone.Gain.input)
+  constructor(actx, destination, vol = 0.2) {
     this._actx = actx;
-    this._vol = volume;
+    this._vol  = vol;
 
-    // 出力ゲイン（エンベロープ用）
+    // 出力エンベロープゲイン
     this._env = actx.createGain();
     this._env.gain.value = 0;
     this._env.connect(destination);
 
-    // 声帯源：鋸波 = 豊かな倍音 → フォルマントフィルタで母音着色
+    // 声帯源: 鋸波（倍音豊富）
     this._osc = actx.createOscillator();
     this._osc.type = 'sawtooth';
 
-    // ジッター：自然な揺らぎ（LFO的）
-    this._jitter = actx.createOscillator();
-    this._jitter.type = 'sine';
-    this._jitter.frequency.value = 5.5;
-    const jGain = actx.createGain();
-    jGain.gain.value = 3; // ±3 Hz のビブラート
-    this._jitter.connect(jGain);
-    jGain.connect(this._osc.frequency);
-    this._jitter.start();
+    // 自然なビブラート (±3 Hz, 5.5 Hz)
+    this._lfo = actx.createOscillator();
+    this._lfo.frequency.value = 5.5;
+    const lfoGain = actx.createGain();
+    lfoGain.gain.value = 3;
+    this._lfo.connect(lfoGain);
+    lfoGain.connect(this._osc.frequency);
+    this._lfo.start();
 
-    // 3本のバンドパスフィルタ（F1/F2/F3）
-    this._filters = [0, 1, 2].map(() => {
+    // F1/F2/F3 バンドパスフィルタ
+    this._bpf = [0, 1, 2].map(() => {
       const f = actx.createBiquadFilter();
-      f.type = 'bandpass';
+      f.type  = 'bandpass';
       f.Q.value = 14;
       return f;
     });
 
-    // 高域ロールオフ（きつすぎる倍音を落とす）
+    // 高域ロールオフ
     this._lp = actx.createBiquadFilter();
     this._lp.type = 'lowpass';
-    this._lp.frequency.value = 4200;
+    this._lp.frequency.value = 4000;
 
-    // ミックス
     const mix = actx.createGain();
-    mix.gain.value = 0.9;
-
-    this._filters.forEach(f => {
-      this._osc.connect(f);
-      f.connect(mix);
-    });
+    mix.gain.value = 0.85;
+    this._bpf.forEach(f => { this._osc.connect(f); f.connect(mix); });
     mix.connect(this._lp);
     this._lp.connect(this._env);
 
     this._osc.start();
-    this._setVowel('ア');
+    this._applyVowel('ア', 0);
   }
 
-  _setVowel(v, time) {
-    const [f1, f2, f3] = FormantSynth.VOWELS[v] || FormantSynth.VOWELS['ア'];
-    const t = time ?? this._actx.currentTime;
-    this._filters[0].frequency.setValueAtTime(f1, t);
-    this._filters[1].frequency.setValueAtTime(f2, t);
-    this._filters[2].frequency.setValueAtTime(f3, t);
+  _applyVowel(v, time) {
+    const [f1, f2, f3] = FormantSynth.VOWELS[v] ?? FormantSynth.VOWELS['ア'];
+    this._bpf[0].frequency.setValueAtTime(f1, time);
+    this._bpf[1].frequency.setValueAtTime(f2, time);
+    this._bpf[2].frequency.setValueAtTime(f3, time);
   }
 
-  triggerAttackRelease(noteStr, durStr, time, vowel = 'ア') {
-    const freq = Tone.Frequency(noteStr).toFrequency();
+  triggerAttackRelease(note, durStr, time, vowel = 'ア') {
+    const freq = Tone.Frequency(note).toFrequency();
     const dur  = Tone.Time(durStr).toSeconds();
-    const t    = time;
     const atk  = Math.min(0.04, dur * 0.15);
-    const rel  = Math.min(0.06, dur * 0.2);
+    const rel  = Math.min(0.07, dur * 0.2);
 
-    this._osc.frequency.cancelScheduledValues(t);
-    this._osc.frequency.setValueAtTime(freq, t);
-    this._setVowel(vowel, t);
+    this._osc.frequency.setValueAtTime(freq, time);
+    this._applyVowel(vowel, time);
 
-    // 子音っぽいクリック感: 先頭瞬間だけ少し高い
-    this._env.gain.cancelScheduledValues(t);
-    this._env.gain.setValueAtTime(0, t);
-    this._env.gain.linearRampToValueAtTime(this._vol, t + atk);
-    this._env.gain.setValueAtTime(this._vol * 0.85, t + dur - rel);
-    this._env.gain.linearRampToValueAtTime(0, t + dur);
+    this._env.gain.cancelScheduledValues(time);
+    this._env.gain.setValueAtTime(0, time);
+    this._env.gain.linearRampToValueAtTime(this._vol, time + atk);
+    this._env.gain.setValueAtTime(this._vol * 0.82, time + dur - rel);
+    this._env.gain.linearRampToValueAtTime(0, time + dur);
   }
 
   dispose() {
-    try { this._osc.stop();     this._osc.disconnect();    } catch(e){}
-    try { this._jitter.stop();  this._jitter.disconnect(); } catch(e){}
-    try { this._env.disconnect();                          } catch(e){}
+    try { this._osc.stop(); this._osc.disconnect(); } catch(e) {}
+    try { this._lfo.stop(); this._lfo.disconnect(); } catch(e) {}
+    try { this._env.disconnect(); } catch(e) {}
   }
 }
 
-/* ════════════════════════════════════════════
+/* ══════════════════════════════════════════
    音楽データ
-   ════════════════════════════════════════════ */
-const BARS = 4;
+   ══════════════════════════════════════════ */
+const LOOP_END = '4m';
 
-// ── FMリードメロディ（装飾音符多め）──
 const MELODY = [
-  // Bar 0: D — 上昇アルペジオ
-  {time:"0:0:0", note:"D4",  dur:"16n"}, {time:"0:0:1", note:"F#4", dur:"16n"},
-  {time:"0:0:2", note:"A4",  dur:"16n"}, {time:"0:0:3", note:"D5",  dur:"8n"},
-  {time:"0:1:1", note:"C#5", dur:"16n"}, {time:"0:1:2", note:"B4",  dur:"16n"},
-  {time:"0:1:3", note:"A4",  dur:"16n"}, {time:"0:2:0", note:"F#4", dur:"8n"},
-  {time:"0:2:2", note:"G4",  dur:"8n"},  {time:"0:3:0", note:"A4",  dur:"4n"},
-  // Bar 1: A — 高音スタート
-  {time:"1:0:0", note:"E5",  dur:"8n"},  {time:"1:0:2", note:"D5",  dur:"16n"},
-  {time:"1:0:3", note:"C#5", dur:"16n"}, {time:"1:1:0", note:"A4",  dur:"8n"},
-  {time:"1:1:2", note:"B4",  dur:"16n"}, {time:"1:1:3", note:"C#5", dur:"16n"},
-  {time:"1:2:0", note:"E5",  dur:"8n"},  {time:"1:2:2", note:"D5",  dur:"8n"},
-  {time:"1:3:0", note:"C#5", dur:"4n"},
-  // Bar 2: Bm — 上昇→クロマ下降
-  {time:"2:0:0", note:"B4",  dur:"8n"},  {time:"2:0:2", note:"D5",  dur:"16n"},
-  {time:"2:0:3", note:"E5",  dur:"16n"}, {time:"2:1:0", note:"F#5", dur:"8n"},
-  {time:"2:1:2", note:"E5",  dur:"16n"}, {time:"2:1:3", note:"D5",  dur:"16n"},
-  {time:"2:2:0", note:"C#5", dur:"16n"}, {time:"2:2:1", note:"B4",  dur:"16n"},
-  {time:"2:2:2", note:"A4",  dur:"16n"}, {time:"2:2:3", note:"G#4", dur:"16n"},
-  {time:"2:3:0", note:"A4",  dur:"4n"},
-  // Bar 3: G — クライマックスG5
-  {time:"3:0:0", note:"B4",  dur:"8n"},  {time:"3:0:2", note:"D5",  dur:"8n"},
-  {time:"3:1:0", note:"G5",  dur:"8n"},  {time:"3:1:2", note:"F#5", dur:"16n"},
-  {time:"3:1:3", note:"E5",  dur:"16n"}, {time:"3:2:0", note:"D5",  dur:"16n"},
-  {time:"3:2:1", note:"C#5", dur:"16n"}, {time:"3:2:2", note:"B4",  dur:"16n"},
-  {time:"3:2:3", note:"A4",  dur:"16n"}, {time:"3:3:0", note:"D5",  dur:"4n"},
+  {time:'0:0:0',note:'D4', dur:'16n'},{time:'0:0:1',note:'F#4',dur:'16n'},
+  {time:'0:0:2',note:'A4', dur:'16n'},{time:'0:0:3',note:'D5', dur:'8n'},
+  {time:'0:1:1',note:'C#5',dur:'16n'},{time:'0:1:2',note:'B4', dur:'16n'},
+  {time:'0:1:3',note:'A4', dur:'16n'},{time:'0:2:0',note:'F#4',dur:'8n'},
+  {time:'0:2:2',note:'G4', dur:'8n'}, {time:'0:3:0',note:'A4', dur:'4n'},
+
+  {time:'1:0:0',note:'E5', dur:'8n'}, {time:'1:0:2',note:'D5', dur:'16n'},
+  {time:'1:0:3',note:'C#5',dur:'16n'},{time:'1:1:0',note:'A4', dur:'8n'},
+  {time:'1:1:2',note:'B4', dur:'16n'},{time:'1:1:3',note:'C#5',dur:'16n'},
+  {time:'1:2:0',note:'E5', dur:'8n'}, {time:'1:2:2',note:'D5', dur:'8n'},
+  {time:'1:3:0',note:'C#5',dur:'4n'},
+
+  {time:'2:0:0',note:'B4', dur:'8n'}, {time:'2:0:2',note:'D5', dur:'16n'},
+  {time:'2:0:3',note:'E5', dur:'16n'},{time:'2:1:0',note:'F#5',dur:'8n'},
+  {time:'2:1:2',note:'E5', dur:'16n'},{time:'2:1:3',note:'D5', dur:'16n'},
+  {time:'2:2:0',note:'C#5',dur:'16n'},{time:'2:2:1',note:'B4', dur:'16n'},
+  {time:'2:2:2',note:'A4', dur:'16n'},{time:'2:2:3',note:'G#4',dur:'16n'},
+  {time:'2:3:0',note:'A4', dur:'4n'},
+
+  {time:'3:0:0',note:'B4', dur:'8n'}, {time:'3:0:2',note:'D5', dur:'8n'},
+  {time:'3:1:0',note:'G5', dur:'8n'}, {time:'3:1:2',note:'F#5',dur:'16n'},
+  {time:'3:1:3',note:'E5', dur:'16n'},{time:'3:2:0',note:'D5', dur:'16n'},
+  {time:'3:2:1',note:'C#5',dur:'16n'},{time:'3:2:2',note:'B4', dur:'16n'},
+  {time:'3:2:3',note:'A4', dur:'16n'},{time:'3:3:0',note:'D5', dur:'4n'},
 ];
 
-// ── ボカロ声ライン（歌詞対応・母音情報付き）──
 const VOCAL = [
-  {time:"0:0:0", note:"D4",  dur:"8n",  vowel:"ア"},  // 春
-  {time:"0:0:2", note:"F#4", dur:"8n",  vowel:"オ"},  // の
-  {time:"0:1:0", note:"A4",  dur:"4n",  vowel:"ア"},  // 風
-  {time:"0:1:3", note:"A4",  dur:"16n", vowel:"ア"},  // が
-  {time:"0:2:2", note:"F#4", dur:"8n",  vowel:"ウ"},  // 吹
-  {time:"0:3:0", note:"G4",  dur:"8n",  vowel:"イ"},  // い
-  {time:"0:3:2", note:"A4",  dur:"8n",  vowel:"エ"},  // て
-  {time:"1:0:0", note:"E5",  dur:"8n",  vowel:"イ"},  // い
-  {time:"1:0:2", note:"D5",  dur:"4n",  vowel:"ウ"},  // る
-  {time:"1:2:0", note:"E5",  dur:"4n",  vowel:"ウ"},  // 夢
-  {time:"1:3:0", note:"C#5", dur:"4n",  vowel:"オ"},  // の
-  {time:"2:0:0", note:"B4",  dur:"8n",  vowel:"ア"},  // 中
-  {time:"2:0:2", note:"D5",  dur:"4n",  vowel:"エ"},  // で
-  {time:"2:1:2", note:"F#5", dur:"8n",  vowel:"イ"},  // 君
-  {time:"2:2:0", note:"E5",  dur:"8n",  vowel:"イ"},  // に
-  {time:"2:2:2", note:"D5",  dur:"8n",  vowel:"ア"},  // 会
-  {time:"2:3:0", note:"C#5", dur:"8n",  vowel:"イ"},  // い
-  {time:"2:3:2", note:"A4",  dur:"8n",  vowel:"ア"},  // た
-  {time:"3:0:0", note:"B4",  dur:"4n",  vowel:"イ"},  // い
-  {time:"3:2:0", note:"G5",  dur:"4n",  vowel:"ア"},  // 〜
-  {time:"3:3:0", note:"D5",  dur:"4n",  vowel:"ア"},
+  {time:'0:0:0',note:'D4', dur:'8n', vowel:'ア'},
+  {time:'0:0:2',note:'F#4',dur:'8n', vowel:'オ'},
+  {time:'0:1:0',note:'A4', dur:'4n', vowel:'ア'},
+  {time:'0:1:3',note:'A4', dur:'16n',vowel:'ア'},
+  {time:'0:2:2',note:'F#4',dur:'8n', vowel:'ウ'},
+  {time:'0:3:0',note:'G4', dur:'8n', vowel:'イ'},
+  {time:'0:3:2',note:'A4', dur:'8n', vowel:'エ'},
+  {time:'1:0:0',note:'E5', dur:'8n', vowel:'イ'},
+  {time:'1:0:2',note:'D5', dur:'4n', vowel:'ウ'},
+  {time:'1:2:0',note:'E5', dur:'4n', vowel:'ウ'},
+  {time:'1:3:0',note:'C#5',dur:'4n', vowel:'オ'},
+  {time:'2:0:0',note:'B4', dur:'8n', vowel:'ア'},
+  {time:'2:0:2',note:'D5', dur:'4n', vowel:'エ'},
+  {time:'2:1:2',note:'F#5',dur:'8n', vowel:'イ'},
+  {time:'2:2:0',note:'E5', dur:'8n', vowel:'イ'},
+  {time:'2:2:2',note:'D5', dur:'8n', vowel:'ア'},
+  {time:'2:3:0',note:'C#5',dur:'8n', vowel:'イ'},
+  {time:'2:3:2',note:'A4', dur:'8n', vowel:'ア'},
+  {time:'3:0:0',note:'B4', dur:'4n', vowel:'イ'},
+  {time:'3:2:0',note:'G5', dur:'4n', vowel:'ア'},
+  {time:'3:3:0',note:'D5', dur:'4n', vowel:'ア'},
 ];
 
-// ── ストリングスカウンターメロディ（バー2-3で対位旋律）──
 const STRINGS = [
-  // Bar 0: コード和音を分散
-  {time:"0:0:0", notes:["D4","F#4"], dur:"2n"},
-  {time:"0:2:0", notes:["A4","D5"],  dur:"2n"},
-  // Bar 1
-  {time:"1:0:0", notes:["E4","A4"],  dur:"2n"},
-  {time:"1:2:0", notes:["C#5","E5"], dur:"2n"},
-  // Bar 2: Bm — 対位旋律
-  {time:"2:0:0", notes:["B4","D5"],  dur:"4n"},
-  {time:"2:1:0", notes:["F#5","A5"], dur:"4n"},
-  {time:"2:2:0", notes:["E5","G#5"], dur:"4n"},
-  {time:"2:3:0", notes:["D5","F#5"], dur:"4n"},
-  // Bar 3: G — ハーモニー
-  {time:"3:0:0", notes:["G4","B4"],  dur:"4n"},
-  {time:"3:1:0", notes:["G5","B5"],  dur:"4n"},
-  {time:"3:2:0", notes:["F#5","A5"], dur:"4n"},
-  {time:"3:3:0", notes:["D5","G5"],  dur:"4n"},
+  {time:'0:0:0',notes:['D4','F#4'],dur:'2n'},
+  {time:'0:2:0',notes:['A4','D5'], dur:'2n'},
+  {time:'1:0:0',notes:['E4','A4'], dur:'2n'},
+  {time:'1:2:0',notes:['C#5','E5'],dur:'2n'},
+  {time:'2:0:0',notes:['B4','D5'], dur:'4n'},
+  {time:'2:1:0',notes:['F#5','A5'],dur:'4n'},
+  {time:'2:2:0',notes:['E5','G#5'],dur:'4n'},
+  {time:'2:3:0',notes:['D5','F#5'],dur:'4n'},
+  {time:'3:0:0',notes:['G4','B4'], dur:'4n'},
+  {time:'3:1:0',notes:['G5','B5'], dur:'4n'},
+  {time:'3:2:0',notes:['F#5','A5'],dur:'4n'},
+  {time:'3:3:0',notes:['D5','G5'], dur:'4n'},
 ];
 
-// ── コードパッド ──
 const CHORDS = [
-  {time:"0:0:0", notes:["D3","F#3","A3","D4"]},
-  {time:"1:0:0", notes:["A2","E3","A3","C#4"]},
-  {time:"2:0:0", notes:["B2","D3","F#3","B3"]},
-  {time:"3:0:0", notes:["G2","B2","D3","G3"]},
+  {time:'0:0:0',notes:['D3','F#3','A3','D4']},
+  {time:'1:0:0',notes:['A2','E3','A3','C#4']},
+  {time:'2:0:0',notes:['B2','D3','F#3','B3']},
+  {time:'3:0:0',notes:['G2','B2','D3','G3']},
 ];
 
-// ── ミッドベース ──
 const BASS = [
-  {time:"0:0:0",note:"D2",dur:"8n"},{time:"0:0:2",note:"D2",dur:"16n"},
-  {time:"0:1:0",note:"A2",dur:"8n"},{time:"0:2:0",note:"D2",dur:"8n"},
-  {time:"0:2:2",note:"D2",dur:"16n"},{time:"0:3:0",note:"A2",dur:"8n"},
-  {time:"1:0:0",note:"A1",dur:"8n"},{time:"1:0:2",note:"A1",dur:"16n"},
-  {time:"1:1:0",note:"E2",dur:"8n"},{time:"1:2:0",note:"A1",dur:"8n"},
-  {time:"1:2:2",note:"A1",dur:"16n"},{time:"1:3:0",note:"E2",dur:"8n"},
-  {time:"2:0:0",note:"B1",dur:"8n"},{time:"2:0:2",note:"B1",dur:"16n"},
-  {time:"2:1:0",note:"F#2",dur:"8n"},{time:"2:2:0",note:"B1",dur:"8n"},
-  {time:"2:2:2",note:"B1",dur:"16n"},{time:"2:3:0",note:"F#2",dur:"8n"},
-  {time:"3:0:0",note:"G1",dur:"8n"},{time:"3:0:2",note:"G1",dur:"16n"},
-  {time:"3:1:0",note:"D2",dur:"8n"},{time:"3:2:0",note:"G1",dur:"8n"},
-  {time:"3:2:2",note:"G1",dur:"16n"},{time:"3:3:0",note:"D2",dur:"8n"},
+  {time:'0:0:0',note:'D2',dur:'8n'},{time:'0:0:2',note:'D2',dur:'16n'},
+  {time:'0:1:0',note:'A2',dur:'8n'},{time:'0:2:0',note:'D2',dur:'8n'},
+  {time:'0:2:2',note:'D2',dur:'16n'},{time:'0:3:0',note:'A2',dur:'8n'},
+  {time:'1:0:0',note:'A1',dur:'8n'},{time:'1:0:2',note:'A1',dur:'16n'},
+  {time:'1:1:0',note:'E2',dur:'8n'},{time:'1:2:0',note:'A1',dur:'8n'},
+  {time:'1:2:2',note:'A1',dur:'16n'},{time:'1:3:0',note:'E2',dur:'8n'},
+  {time:'2:0:0',note:'B1',dur:'8n'},{time:'2:0:2',note:'B1',dur:'16n'},
+  {time:'2:1:0',note:'F#2',dur:'8n'},{time:'2:2:0',note:'B1',dur:'8n'},
+  {time:'2:2:2',note:'B1',dur:'16n'},{time:'2:3:0',note:'F#2',dur:'8n'},
+  {time:'3:0:0',note:'G1',dur:'8n'},{time:'3:0:2',note:'G1',dur:'16n'},
+  {time:'3:1:0',note:'D2',dur:'8n'},{time:'3:2:0',note:'G1',dur:'8n'},
+  {time:'3:2:2',note:'G1',dur:'16n'},{time:'3:3:0',note:'D2',dur:'8n'},
 ];
 
-// ── サブベース（小節単位、重低音）──
 const SUB = [
-  {time:"0:0:0",note:"D2",dur:"1m"},
-  {time:"1:0:0",note:"A2",dur:"1m"},
-  {time:"2:0:0",note:"B2",dur:"1m"},
-  {time:"3:0:0",note:"G2",dur:"1m"},
+  {time:'0:0:0',note:'D2',dur:'1m'},
+  {time:'1:0:0',note:'A2',dur:'1m'},
+  {time:'2:0:0',note:'B2',dur:'1m'},
+  {time:'3:0:0',note:'G2',dur:'1m'},
 ];
 
-// ── 歌詞 ──
 const LYRICS = [
-  {time:"0:0:0",w:"春"},{time:"0:0:2",w:"の"},{time:"0:1:0",w:"風"},
-  {time:"0:1:3",w:"が"},{time:"0:2:2",w:"吹"},{time:"0:3:0",w:"い"},
-  {time:"0:3:2",w:"て"},{time:"1:0:0",w:"い"},{time:"1:0:2",w:"る"},
-  {time:"1:2:0",w:"夢"},{time:"1:3:0",w:"の"},{time:"2:0:0",w:"中"},
-  {time:"2:0:2",w:"で"},{time:"2:1:2",w:"君"},{time:"2:2:0",w:"に"},
-  {time:"2:2:2",w:"会"},{time:"2:3:0",w:"い"},{time:"2:3:2",w:"た"},
-  {time:"3:0:0",w:"い"},{time:"3:2:0",w:"〜"},
+  {time:'0:0:0',w:'春'},{time:'0:0:2',w:'の'},{time:'0:1:0',w:'風'},
+  {time:'0:1:3',w:'が'},{time:'0:2:2',w:'吹'},{time:'0:3:0',w:'い'},
+  {time:'0:3:2',w:'て'},{time:'1:0:0',w:'い'},{time:'1:0:2',w:'る'},
+  {time:'1:2:0',w:'夢'},{time:'1:3:0',w:'の'},{time:'2:0:0',w:'中'},
+  {time:'2:0:2',w:'で'},{time:'2:1:2',w:'君'},{time:'2:2:0',w:'に'},
+  {time:'2:2:2',w:'会'},{time:'2:3:0',w:'い'},{time:'2:3:2',w:'た'},
+  {time:'3:0:0',w:'い'},{time:'3:2:0',w:'〜'},
 ];
 
-/* ════════════════════════════════════════════
-   オーディオグラフ
-   ════════════════════════════════════════════ */
-const LOOP_END = "4m";
-let synths = {};
-let parts  = [];
-let fftAnalyser, meterNodes = {};
-let playing = false;
-let rafId;
-
-// ミュート状態
-const TRACKS = ['vocal','lead','strings','pad','bass','sub','drum'];
+/* ══════════════════════════════════════════
+   オーディオグラフ（非同期 — Reverb の IR 生成を待つ）
+   ══════════════════════════════════════════ */
+const TRACKS   = ['vocal','lead','strings','bass','sub','drum'];
 const muteState = Object.fromEntries(TRACKS.map(t => [t, false]));
+const flashLvl  = Object.fromEntries(TRACKS.map(t => [t, 0]));
 
-function buildAudio() {
+let synths = {}, parts = [], fftAna = null, playing = false, rafId;
+
+async function buildAudio() {
   const actx = Tone.getContext().rawContext;
 
   // ── マスターバス ──
-  const masterComp  = new Tone.Compressor({ threshold: -18, ratio: 4, attack: 0.003, release: 0.1 });
-  const masterLimit = new Tone.Limiter(-1);
-  masterComp.chain(masterLimit, Tone.getDestination());
+  const comp  = new Tone.Compressor({ threshold: -18, ratio: 4, attack: 0.003, release: 0.1 });
+  const limit = new Tone.Limiter(-1);
+  comp.chain(limit, Tone.getDestination());
 
-  // FFTアナライザ（ビジュアライザ用）
-  fftAnalyser = new Tone.Analyser('fft', 32);
-  masterLimit.connect(fftAnalyser);
+  // FFT アナライザ（マスターからタップ）
+  fftAna = new Tone.Analyser('fft', 32);
+  limit.connect(fftAna);
 
-  // ── センドバス ──
-  const roomRev  = new Tone.Reverb({ decay: 2.0, wet: 0.25 }).connect(masterComp);
-  const hallRev  = new Tone.Reverb({ decay: 4.0, wet: 0.35 }).connect(masterComp);
-  const shortRev = new Tone.Reverb({ decay: 0.6, wet: 0.20 }).connect(masterComp);
+  // ── センドバス（IR 生成を並列 await）──
+  const [room, hall, sht] = await Promise.all([
+    new Tone.Reverb({ decay: 1.8, wet: 0.22 }).generate(),
+    new Tone.Reverb({ decay: 3.5, wet: 0.30 }).generate(),
+    new Tone.Reverb({ decay: 0.5, wet: 0.18 }).generate(),
+  ]);
+  room.connect(comp);
+  hall.connect(comp);
+  sht.connect(comp);
 
-  // ── ボカロ（フォルマント合成）──
-  const vocalRev = new Tone.Reverb({ decay: 1.2, wet: 0.28 }).connect(masterComp);
-  const vocalSynth = new FormantSynth(actx, vocalRev._gainNode ?? vocalRev.input ?? Tone.getContext().rawContext.destination);
-
-  // FormantSynth は rawContext で作るため Tone の chain の外。
-  // Tone.Reverb の入力 AudioNode を取得してそこに接続する。
-  // → ここでは Tone.Gain ラッパーを使って橋渡しする。
-  const vGain = new Tone.Gain(1).connect(roomRev);
-  // FormantSynth の出力を Tone.Gain の入力に接続
-  vocalSynth._env.disconnect();
-  vocalSynth._env.connect(vGain.input);
-
-  // レベルメーター用ゲイン
-  meterNodes.vocal = new Tone.Meter({ normalRange: true });
-  vGain.connect(meterNodes.vocal);
-
-  synths.vocal = vocalSynth;
-  synths.vGain = vGain;
+  // ── ボカロ（FormantSynth）──
+  // Tone.Gain.input は生の GainNode → FormantSynth の Web Audio 接続先として使える
+  const vGain = new Tone.Gain(0.9).connect(room);
+  synths.vocal = new FormantSynth(actx, vGain.input);
 
   // ── FMリードシンセ ──
-  const leadDelay = new Tone.FeedbackDelay({ delayTime: "8n", feedback: 0.28, wet: 0.25 }).connect(roomRev);
-  const leadSynth = new Tone.FMSynth({
+  const ldDly = new Tone.FeedbackDelay({ delayTime: '8n', feedback: 0.26, wet: 0.22 }).connect(room);
+  synths.lead = new Tone.FMSynth({
     harmonicity: 3.5, modulationIndex: 14,
-    oscillator: { type: "sine" },
+    oscillator: { type: 'sine' },
     envelope: { attack: 0.01, decay: 0.08, sustain: 0.6, release: 0.35 },
-    modulation: { type: "square" },
+    modulation: { type: 'square' },
     modulationEnvelope: { attack: 0.01, decay: 0.18, sustain: 0.25, release: 0.1 },
     volume: -5,
-  }).connect(leadDelay);
-  meterNodes.lead = new Tone.Meter({ normalRange: true });
-  leadSynth.connect(meterNodes.lead);
-  synths.lead = leadSynth;
+  }).connect(ldDly);
 
   // ── ストリングス（AMSynth + Vibrato + Chorus）──
-  const strVibrato = new Tone.Vibrato({ frequency: 5.2, depth: 0.06 }).connect(hallRev);
-  const strChorus  = new Tone.Chorus({ frequency: 3, delayTime: 3.5, depth: 0.4, wet: 0.5 }).start().connect(strVibrato);
-  const strSynth   = new Tone.PolySynth(Tone.AMSynth, {
+  const vibrato = new Tone.Vibrato({ frequency: 5.2, depth: 0.06, wet: 0.8 }).connect(hall);
+  const chorus  = new Tone.Chorus({ frequency: 3, delayTime: 3.5, depth: 0.4, wet: 0.5 }).start().connect(vibrato);
+  synths.strings = new Tone.PolySynth(Tone.AMSynth, {
     harmonicity: 1.5,
-    oscillator: { type: "sawtooth" },
+    oscillator: { type: 'sawtooth' },
     envelope: { attack: 0.25, decay: 0.1, sustain: 0.75, release: 1.8 },
-    modulation: { type: "sine" },
+    modulation: { type: 'sine' },
     modulationEnvelope: { attack: 0.4, decay: 0, sustain: 1, release: 0.5 },
-    volume: -9,
-  }).connect(strChorus);
-  meterNodes.strings = new Tone.Meter({ normalRange: true });
-  strSynth.connect(meterNodes.strings);
-  synths.strings = strSynth;
+    volume: -10,
+  }).connect(chorus);
 
   // ── コードパッド ──
-  const padSynth = new Tone.PolySynth(Tone.Synth, {
-    oscillator: { type: "sine" },
+  synths.pad = new Tone.PolySynth(Tone.Synth, {
+    oscillator: { type: 'sine' },
     envelope: { attack: 0.2, decay: 0.3, sustain: 0.5, release: 1.5 },
-    volume: -13,
-  }).connect(hallRev);
-  synths.pad = padSynth;
+    volume: -14,
+  }).connect(hall);
 
   // ── ミッドベース ──
-  const bassSynth = new Tone.MonoSynth({
-    oscillator: { type: "sawtooth" },
-    filter: { frequency: 380, type: "lowpass", rolloff: -24 },
+  synths.bass = new Tone.MonoSynth({
+    oscillator: { type: 'sawtooth' },
+    filter: { frequency: 400, type: 'lowpass', rolloff: -24 },
     filterEnvelope: { attack: 0.01, decay: 0.1, sustain: 0.4, release: 0.2, baseFrequency: 200, octaves: 2.5 },
     envelope: { attack: 0.01, decay: 0.12, sustain: 0.55, release: 0.25 },
     volume: -5,
-  }).connect(masterComp);
-  meterNodes.bass = new Tone.Meter({ normalRange: true });
-  bassSynth.connect(meterNodes.bass);
-  synths.bass = bassSynth;
+  }).connect(comp);
 
-  // ── サブベース（サイン波、超低域）──
-  const subSynth = new Tone.Synth({
-    oscillator: { type: "sine" },
-    envelope: { attack: 0.05, decay: 0.3, sustain: 0.7, release: 0.5 },
+  // ── サブベース（サイン波で重低音）──
+  synths.sub = new Tone.Synth({
+    oscillator: { type: 'sine' },
+    envelope: { attack: 0.06, decay: 0.3, sustain: 0.7, release: 0.6 },
     volume: -7,
-  }).connect(masterComp);
-  meterNodes.sub = new Tone.Meter({ normalRange: true });
-  subSynth.connect(meterNodes.sub);
-  synths.sub = subSynth;
+  }).connect(comp);
 
   // ── ドラムキット ──
-  const kickComp = new Tone.Compressor({ threshold: -12, ratio: 6 }).connect(masterComp);
-  const kick  = new Tone.MembraneSynth({ pitchDecay: 0.06, octaves: 7,
-    envelope: { attack: 0.001, decay: 0.35, sustain: 0, release: 0.1 }, volume: 0,
-  }).connect(kickComp);
-  const snare = new Tone.NoiseSynth({ noise: { type: "white" },
-    envelope: { attack: 0.001, decay: 0.14, sustain: 0, release: 0.06 }, volume: -7,
-  }).connect(shortRev);
-  const hat   = new Tone.MetalSynth({ frequency: 400, harmonicity: 5.1,
-    modulationIndex: 32, resonance: 4200, octaves: 1.5,
-    envelope: { attack: 0.001, decay: 0.04, release: 0.01 }, volume: -15,
-  }).connect(masterComp);
-  const openHat = new Tone.MetalSynth({ frequency: 400, harmonicity: 5.1,
-    modulationIndex: 32, resonance: 4200, octaves: 1.5,
+  const kComp = new Tone.Compressor({ threshold: -12, ratio: 6 }).connect(comp);
+  synths.kick = new Tone.MembraneSynth({
+    pitchDecay: 0.06, octaves: 7,
+    envelope: { attack: 0.001, decay: 0.36, sustain: 0, release: 0.12 },
+    volume: 1,
+  }).connect(kComp);
+  synths.snare = new Tone.NoiseSynth({
+    noise: { type: 'white' },
+    envelope: { attack: 0.001, decay: 0.14, sustain: 0, release: 0.06 },
+    volume: -6,
+  }).connect(sht);
+  synths.hat = new Tone.MetalSynth({
+    frequency: 400, harmonicity: 5.1, modulationIndex: 32, resonance: 4200, octaves: 1.5,
+    envelope: { attack: 0.001, decay: 0.04, release: 0.01 }, volume: -16,
+  }).connect(comp);
+  synths.ohat = new Tone.MetalSynth({
+    frequency: 400, harmonicity: 5.1, modulationIndex: 32, resonance: 4200, octaves: 1.5,
     envelope: { attack: 0.001, decay: 0.22, release: 0.06 }, volume: -18,
-  }).connect(shortRev);
-  meterNodes.drum = new Tone.Meter({ normalRange: true });
-  kick.connect(meterNodes.drum);
-  synths.kick = kick; synths.snare = snare; synths.hat = hat; synths.openHat = openHat;
-
-  return { masterComp };
+  }).connect(sht);
 }
 
 function disposeSynths() {
-  Object.values(synths).forEach(s => { try { s.dispose?.(); } catch(e){} });
+  if (synths.vocal) { synths.vocal.dispose(); }
+  Object.entries(synths).forEach(([k, s]) => {
+    if (k === 'vocal') return;
+    try { s.dispose?.(); } catch(e) {}
+  });
   synths = {};
-  Object.values(meterNodes).forEach(m => { try { m.dispose?.(); } catch(e){} });
-  meterNodes = {};
-  parts.forEach(p => { try { p.dispose?.(); } catch(e){} });
+  parts.forEach(p => { try { p.dispose?.(); } catch(e) {} });
   parts = [];
+  if (fftAna) { try { fftAna.dispose(); } catch(e) {} fftAna = null; }
 }
 
-/* ════════════════════════════════════════════
+/* ══════════════════════════════════════════
    パート構築
-   ════════════════════════════════════════════ */
+   ══════════════════════════════════════════ */
 function makePart(events, fn) {
   const p = new Tone.Part(fn, events);
-  p.loop    = true;
-  p.loopEnd = LOOP_END;
-  p.start(0);
+  p.loop = true; p.loopEnd = LOOP_END; p.start(0);
   parts.push(p);
-  return p;
+}
+
+function flash(track) {
+  Tone.getDraw().schedule(() => { flashLvl[track] = 1; }, Tone.now());
 }
 
 function buildParts() {
-  // ボカロ
   makePart(VOCAL, (time, ev) => {
     if (muteState.vocal) return;
     synths.vocal.triggerAttackRelease(ev.note, ev.dur, time, ev.vowel);
+    Tone.getDraw().schedule(() => { flashLvl.vocal = 1; }, time);
   });
 
-  // FMリード
   makePart(MELODY, (time, ev) => {
     if (muteState.lead) return;
     synths.lead.triggerAttackRelease(ev.note, ev.dur, time);
+    Tone.getDraw().schedule(() => { flashLvl.lead = 1; }, time);
   });
 
-  // ストリングス
   makePart(STRINGS, (time, ev) => {
     if (muteState.strings) return;
     synths.strings.triggerAttackRelease(ev.notes, ev.dur, time);
+    Tone.getDraw().schedule(() => { flashLvl.strings = 1; }, time);
   });
 
-  // コードパッド
   makePart(CHORDS, (time, ev) => {
-    if (muteState.pad) return;
-    synths.pad.triggerAttackRelease(ev.notes, "2n.", time);
+    synths.pad.triggerAttackRelease(ev.notes, '2n.', time);
   });
 
-  // ミッドベース
   makePart(BASS, (time, ev) => {
     if (muteState.bass) return;
     synths.bass.triggerAttackRelease(ev.note, ev.dur, time);
+    Tone.getDraw().schedule(() => { flashLvl.bass = 0.9; }, time);
   });
 
-  // サブベース
   makePart(SUB, (time, ev) => {
     if (muteState.sub) return;
     synths.sub.triggerAttackRelease(ev.note, ev.dur, time);
+    Tone.getDraw().schedule(() => { flashLvl.sub = 0.7; }, time);
   });
 
-  // ドラム（16ステップ × 1小節ループ）
-  // kick: 0,8  snare: 4,12  openhat: 6,14  hat: rest
+  // ドラム（16ステップ）
   const drumSeq = new Tone.Sequence((time, step) => {
     if (muteState.drum) return;
-    if ([0, 8].includes(step))      synths.kick.triggerAttackRelease("C1", "8n", time);
-    if ([4, 12].includes(step))     synths.snare.triggerAttackRelease("8n", time);
-    if ([6, 14].includes(step))     synths.openHat.triggerAttackRelease("16n", time);
-    else if ([0,2,4,6,8,10,12,14].includes(step)) synths.hat.triggerAttackRelease("32n", time);
-    // ghost snare on 9
-    if (step === 9) synths.snare.triggerAttackRelease("32n", time);
-  }, [...Array(16).keys()], "16n");
+    if ([0, 8].includes(step))  synths.kick.triggerAttackRelease('C1', '8n', time);
+    if ([4, 12].includes(step)) synths.snare.triggerAttackRelease('8n', time);
+    if ([6, 14].includes(step)) synths.ohat.triggerAttackRelease('16n', time);
+    else if (step % 2 === 0)    synths.hat.triggerAttackRelease('32n', time);
+    if (step === 9) synths.snare.triggerAttackRelease('32n', time); // ghost
+    if ([0, 4, 8, 12].includes(step)) Tone.getDraw().schedule(() => { flashLvl.drum = 1; }, time);
+  }, [...Array(16).keys()], '16n');
   drumSeq.start(0);
   parts.push(drumSeq);
 
-  // コード表示パート
+  // コード表示
   const cpPart = new Tone.Part((time, ev) => {
     Tone.getDraw().schedule(() => {
       document.querySelectorAll('.cp').forEach(p => p.classList.remove('active'));
       document.getElementById('cp-' + ev.i)?.classList.add('active');
     }, time);
-  }, [{time:"0:0:0",i:0},{time:"1:0:0",i:1},{time:"2:0:0",i:2},{time:"3:0:0",i:3}]);
-  cpPart.loop    = true;
-  cpPart.loopEnd = LOOP_END;
-  cpPart.start(0);
+  }, [{time:'0:0:0',i:0},{time:'1:0:0',i:1},{time:'2:0:0',i:2},{time:'3:0:0',i:3}]);
+  cpPart.loop = true; cpPart.loopEnd = LOOP_END; cpPart.start(0);
   parts.push(cpPart);
 }
 
-/* ════════════════════════════════════════════
+/* ══════════════════════════════════════════
    再生 / 停止
-   ════════════════════════════════════════════ */
+   ══════════════════════════════════════════ */
 async function startPlayback() {
+  if (playing) return;
   await Tone.start();
+
+  const btn = document.getElementById('btn-play');
+  btn.textContent = '生成中...';
+  btn.style.opacity = '0.5';
+  document.getElementById('status').textContent = 'リバーブ生成中...';
+
   Tone.Transport.bpm.value = parseInt(document.getElementById('sl-bpm').value);
   Tone.Transport.loop      = true;
   Tone.Transport.loopStart = 0;
   Tone.Transport.loopEnd   = LOOP_END;
 
-  buildAudio();
+  await buildAudio();
   buildParts();
 
   Tone.Transport.start();
   playing = true;
-  document.getElementById('btn-play').style.opacity = '0.45';
+  btn.textContent = '▶ 再生';
+  btn.style.opacity = '0.45';
   document.getElementById('status').textContent = '再生中 ▶';
   tick();
 }
 
 function stopPlayback() {
+  if (!playing) return;
   playing = false;
   cancelAnimationFrame(rafId);
   Tone.Transport.stop();
@@ -621,13 +536,15 @@ function stopPlayback() {
   document.querySelectorAll('.lw').forEach(p => p.classList.remove('lit'));
   document.getElementById('prog').style.width = '0%';
   document.getElementById('btn-play').style.opacity = '1';
+  document.getElementById('btn-play').textContent = '▶ 再生';
   document.getElementById('status').textContent = '停止中';
-  vizBars.forEach(b => { b.style.height = '3px'; b.style.background = '#12122a'; });
+  vizBars.forEach(b => b.style.height = '2px');
+  TRACKS.forEach(t => { flashLvl[t] = 0; });
 }
 
-/* ════════════════════════════════════════════
+/* ══════════════════════════════════════════
    アニメーションループ
-   ════════════════════════════════════════════ */
+   ══════════════════════════════════════════ */
 function tick() {
   if (!playing) return;
   rafId = requestAnimationFrame(tick);
@@ -639,77 +556,67 @@ function tick() {
   document.getElementById('prog').style.width = (pos / loopSec * 100) + '%';
 
   // 歌詞ハイライト
-  const lytimes = LYRICS.map(l => Tone.Time(l.time).toSeconds());
+  const ltimes = LYRICS.map(l => Tone.Time(l.time).toSeconds());
   LYRICS.forEach((l, i) => {
-    const s = lytimes[i];
-    const e = lytimes[i + 1] ?? loopSec;
+    const s = ltimes[i], e = ltimes[i + 1] ?? loopSec;
     document.getElementById('lw' + i)?.classList.toggle('lit', pos >= s && pos < e);
   });
 
-  // FFTビジュアライザ
-  if (fftAnalyser) {
-    const vals = fftAnalyser.getValue(); // Float32Array, dB
+  // FFT ビジュアライザ
+  if (fftAna) {
+    const vals = fftAna.getValue();
     vizBars.forEach((b, i) => {
       if (i >= vals.length) return;
       const db   = vals[i];
-      const norm = Math.max(0, Math.min(1, (db + 80) / 80));
-      b.style.height = (3 + norm * 68) + 'px';
-      const r = Math.round(18 + norm * 237);
-      const g = Math.round(18 + norm * 92);
-      const bl= Math.round(42 + norm * 138);
+      const norm = isFinite(db) ? Math.max(0, Math.min(1, (db + 80) / 80)) : 0;
+      b.style.height = (2 + norm * 70) + 'px';
+      const r  = Math.round(18  + norm * 237);
+      const g  = Math.round(18  + norm * 92);
+      const bl = Math.round(42  + norm * 138);
       b.style.background = `rgb(${r},${g},${bl})`;
     });
   }
 
-  // トラックメーター
-  const meterMap = {vocal:'m-vocal', lead:'m-lead', strings:'m-str', bass:'m-bass', sub:'m-sub', drum:'m-drum'};
-  Object.entries(meterMap).forEach(([key, id]) => {
-    const m = meterNodes[key];
-    if (!m) return;
-    const v   = m.getValue();
-    const pct = Math.min(100, Math.max(0, v * 100));
-    const el  = document.getElementById(id);
-    if (el) el.style.height = pct + '%';
+  // トラックメーター（トリガー起点フラッシュ + 減衰）
+  const meterIds = {vocal:'mv-vocal', lead:'mv-lead', strings:'mv-str', bass:'mv-bass', sub:'mv-sub', drum:'mv-drum'};
+  TRACKS.forEach(t => {
+    flashLvl[t] = Math.max(0, flashLvl[t] - 0.04);
+    const el = document.getElementById(meterIds[t]);
+    if (el) el.style.height = (flashLvl[t] * 100) + '%';
   });
 }
 
-/* ════════════════════════════════════════════
+/* ══════════════════════════════════════════
    UI 構築
-   ════════════════════════════════════════════ */
+   ══════════════════════════════════════════ */
 
-// FFTビジュアライザバー
-const vizEl  = document.getElementById('viz');
-const VIZ_N  = 32;
+// FFT バー
+const vizEl   = document.getElementById('viz');
 const vizBars = [];
-for (let i = 0; i < VIZ_N; i++) {
+for (let i = 0; i < 32; i++) {
   const b = document.createElement('div');
-  b.className = 'vbar';
-  b.style.height = '3px';
-  vizEl.appendChild(b);
-  vizBars.push(b);
+  b.className = 'vbar'; b.style.height = '2px';
+  vizEl.appendChild(b); vizBars.push(b);
 }
 
 // 歌詞
-(function buildLyrics() {
+(function() {
   const el = document.getElementById('lyrics');
   LYRICS.forEach((l, i) => {
     const s = document.createElement('span');
-    s.className = 'lw';
-    s.id = 'lw' + i;
-    s.textContent = l.w;
+    s.className = 'lw'; s.id = 'lw' + i; s.textContent = l.w;
     el.appendChild(s);
   });
 })();
 
 // ミュートボタン
-(function buildMutes() {
-  const wrap = document.getElementById('mutes');
-  const LABELS = {vocal:'Vocal', lead:'Lead', strings:'Strings', pad:'Pad', bass:'Bass', sub:'Sub', drum:'Drum'};
+(function() {
+  const wrap   = document.getElementById('mutes');
+  const labels = {vocal:'Vocal', lead:'Lead', strings:'Strings', bass:'Bass', sub:'Sub', drum:'Drum'};
   TRACKS.forEach(t => {
     const btn = document.createElement('button');
-    btn.className = 'mute-btn on';
-    btn.textContent = LABELS[t];
-    btn.dataset.track = t;
+    btn.className = 'mb on';
+    btn.textContent = labels[t];
     btn.addEventListener('click', () => {
       muteState[t] = !muteState[t];
       btn.classList.toggle('on', !muteState[t]);
@@ -718,12 +625,11 @@ for (let i = 0; i < VIZ_N; i++) {
   });
 })();
 
-// イベントリスナー
-document.getElementById('btn-play').addEventListener('click', () => { if (!playing) startPlayback(); });
+document.getElementById('btn-play').addEventListener('click', startPlayback);
 document.getElementById('btn-stop').addEventListener('click', stopPlayback);
 document.getElementById('sl-bpm').addEventListener('input', function() {
   document.getElementById('bpm-val').textContent = this.value;
-  Tone.Transport.bpm.value = parseInt(this.value);
+  if (playing) Tone.Transport.bpm.value = parseInt(this.value);
 });
 </script>
 </body>
