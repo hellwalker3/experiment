@@ -22,34 +22,27 @@
     h1 { color: #ff6eb4; font-size: 1.5em; margin: 10px 0 2px; letter-spacing: 0.06em; }
     .sub { color: #2a2a3a; font-size: 0.72em; font-family: monospace; margin-bottom: 20px; }
 
-    /* FFT visualizer */
-    #viz { display: flex; align-items: flex-end; gap: 3px; height: 72px; width: 320px; margin-bottom: 16px; }
+    #viz { display: flex; align-items: flex-end; gap: 3px; height: 72px; width: 320px; margin-bottom: 14px; }
     .vbar { flex: 1; background: #12122a; border-radius: 2px 2px 0 0; }
 
-    /* chord pills */
-    #chord-row { display: flex; gap: 10px; margin-bottom: 16px; }
-    .cp { padding: 5px 16px; border-radius: 16px; border: 1px solid #181828; color: #252535;
-          font-size: 1em; font-weight: bold; min-width: 48px; text-align: center; transition: all 0.12s; }
+    #section-label { font-size: 0.7em; font-family: monospace; color: #444; margin-bottom: 8px; letter-spacing: 0.1em; text-transform: uppercase; }
+
+    #chord-row { display: flex; gap: 10px; margin-bottom: 14px; }
+    .cp { padding: 5px 14px; border-radius: 14px; border: 1px solid #181828; color: #222;
+          font-size: 0.95em; font-weight: bold; min-width: 44px; text-align: center; transition: all 0.12s; }
     .cp.active { background: #14051e; border-color: #ff6eb4; color: #ff9fd0; box-shadow: 0 0 10px #ff6eb430; }
 
-    /* progress */
-    #prog-wrap { width: 320px; height: 2px; background: #101020; border-radius: 1px; margin-bottom: 16px; overflow: hidden; }
+    #prog-wrap { width: 320px; height: 2px; background: #101020; border-radius: 1px; margin-bottom: 14px; overflow: hidden; }
     #prog { height: 100%; width: 0%; background: linear-gradient(90deg, #ff6eb4, #7eb4ff); }
 
-    /* track meters */
     #meters { display: grid; grid-template-columns: repeat(6, 1fr); gap: 5px; width: 320px; margin-bottom: 18px; }
     .mc { display: flex; flex-direction: column; align-items: center; gap: 3px; }
     .ml { font-size: 0.58em; color: #2a2a3a; font-family: monospace; }
     .mw { width: 100%; height: 36px; background: #0d0d1a; border-radius: 2px; display: flex; flex-direction: column-reverse; overflow: hidden; }
-    .mf { width: 100%; height: 0%; transition: height 0.08s; border-radius: 0; }
-    .mf.p { background: #ff6eb4; }
-    .mf.b { background: #6eb4ff; }
-    .mf.c { background: #6effee; }
-    .mf.g { background: #6effa0; }
-    .mf.y { background: #ffe06e; }
-    .mf.w { background: #cc88ff; }
+    .mf { width: 100%; height: 0%; transition: height 0.08s; }
+    .mf.p { background: #ff6eb4; } .mf.b { background: #6eb4ff; } .mf.c { background: #6effee; }
+    .mf.y { background: #ffe06e; } .mf.g { background: #6effa0; } .mf.w { background: #cc88ff; }
 
-    /* controls */
     #controls { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; justify-content: center; margin-bottom: 14px; }
     .btn { padding: 9px 22px; border-radius: 20px; border: none; cursor: pointer;
            font-size: 0.9em; font-weight: bold; transition: transform 0.1s, opacity 0.15s; }
@@ -59,33 +52,36 @@
     label { color: #333; font-size: 0.78em; font-family: monospace; }
     input[type=range] { accent-color: #ff6eb4; width: 80px; vertical-align: middle; }
 
-    /* mute buttons */
-    #mutes { display: flex; gap: 7px; margin-bottom: 16px; flex-wrap: wrap; justify-content: center; }
+    #mutes { display: flex; gap: 7px; margin-bottom: 18px; flex-wrap: wrap; justify-content: center; }
     .mb { font-size: 0.68em; font-family: monospace; padding: 4px 10px; border-radius: 10px;
           border: 1px solid #1a1a2a; background: #0c0c18; color: #333; cursor: pointer; transition: all 0.1s; }
     .mb.on { border-color: #ff6eb4; color: #ff9fd0; background: #160520; }
 
-    /* lyrics */
-    #lyrics { font-size: 1.45em; letter-spacing: 0.18em; text-align: center; min-height: 1.8em; margin-bottom: 8px; }
-    .lw { color: #1e1e2e; transition: color 0.09s, text-shadow 0.09s; }
-    .lw.lit { color: #f0e0ff; text-shadow: 0 0 12px #ff6eb4bb; }
+    #lyrics-wrap {
+      display: flex; align-items: center; justify-content: center; gap: 16px;
+      min-height: 2.5em; margin-bottom: 6px;
+    }
+    .ly-side { font-size: 1.2em; color: #1e1e2e; transition: color 0.15s; }
+    .ly-main { font-size: 2em; color: #f0e0ff; text-shadow: 0 0 16px #ff6eb4cc; letter-spacing: 0.05em;
+               transition: all 0.1s; min-width: 1.2em; text-align: center; }
 
-    #status { color: #1e1e2e; font-size: 0.68em; font-family: monospace; margin-top: 4px; }
+    #status { color: #1a1a2a; font-size: 0.68em; font-family: monospace; }
   </style>
 </head>
 <body>
 
 <a class="back" href="../../index.html">← 実験一覧</a>
 <h1>EXP-003: アニソン</h1>
-<p class="sub">D major · 158 BPM · D–A–Bm–G · vocal+lead+strings+bass+sub+drum</p>
+<p class="sub">D major · 158 BPM · Verse → Pre-Chorus → Chorus · 16 bars</p>
 
 <div id="viz"></div>
+<div id="section-label">—</div>
 
 <div id="chord-row">
-  <div class="cp" id="cp-0">D</div>
-  <div class="cp" id="cp-1">A</div>
-  <div class="cp" id="cp-2">Bm</div>
-  <div class="cp" id="cp-3">G</div>
+  <div class="cp" id="cp-0"></div>
+  <div class="cp" id="cp-1"></div>
+  <div class="cp" id="cp-2"></div>
+  <div class="cp" id="cp-3"></div>
 </div>
 
 <div id="prog-wrap"><div id="prog"></div></div>
@@ -93,7 +89,7 @@
 <div id="meters">
   <div class="mc"><div class="mw"><div class="mf p" id="mv-vocal"></div></div><div class="ml">vocal</div></div>
   <div class="mc"><div class="mw"><div class="mf b" id="mv-lead"></div></div><div class="ml">lead</div></div>
-  <div class="mc"><div class="mw"><div class="mf c" id="mv-str"></div></div><div class="ml">strings</div></div>
+  <div class="mc"><div class="mw"><div class="mf c" id="mv-str"></div></div><div class="ml">str</div></div>
   <div class="mc"><div class="mw"><div class="mf y" id="mv-bass"></div></div><div class="ml">bass</div></div>
   <div class="mc"><div class="mw"><div class="mf g" id="mv-sub"></div></div><div class="ml">sub</div></div>
   <div class="mc"><div class="mw"><div class="mf w" id="mv-drum"></div></div><div class="ml">drum</div></div>
@@ -105,201 +101,305 @@
   <label>BPM <input type="range" id="sl-bpm" min="80" max="200" value="158"> <span id="bpm-val">158</span></label>
 </div>
 <div id="mutes"></div>
-<div id="lyrics"></div>
+
+<div id="lyrics-wrap">
+  <span class="ly-side" id="ly-prev"></span>
+  <span class="ly-main" id="ly-curr">♪</span>
+  <span class="ly-side" id="ly-next"></span>
+</div>
 <div id="status">停止中</div>
 
 <script>
 /* ══════════════════════════════════════════
-   FormantSynth — 母音フォルマント合成（ボカロ声）
-   鋸波 → F1/F2/F3 バンドパスフィルタ → ゲインエンベロープ
+   FormantSynth
+   鋸波 → F1/F2/F3 バンドパス → ゲインエンベロープ
+   destination = 生の AudioNode (Tone.Gain.input など)
    ══════════════════════════════════════════ */
 class FormantSynth {
-  // 日本語母音の代表フォルマント周波数 [F1, F2, F3] Hz
   static VOWELS = {
-    'ア': [800, 1200, 2500],
-    'イ': [280, 2700, 3100],
-    'ウ': [300,  900, 2200],
-    'エ': [530, 1840, 2500],
-    'オ': [500,  800, 2500],
+    'ア': [800,1200,2500], 'イ': [280,2700,3100],
+    'ウ': [300, 900,2200], 'エ': [530,1840,2500], 'オ': [500,800,2500],
   };
-
-  // destination は生の AudioNode (例: Tone.Gain.input)
   constructor(actx, destination, vol = 0.2) {
-    this._actx = actx;
-    this._vol  = vol;
-
-    // 出力エンベロープゲイン
-    this._env = actx.createGain();
-    this._env.gain.value = 0;
+    this._actx = actx; this._vol = vol;
+    this._env = actx.createGain(); this._env.gain.value = 0;
     this._env.connect(destination);
-
-    // 声帯源: 鋸波（倍音豊富）
-    this._osc = actx.createOscillator();
-    this._osc.type = 'sawtooth';
-
-    // 自然なビブラート (±3 Hz, 5.5 Hz)
-    this._lfo = actx.createOscillator();
-    this._lfo.frequency.value = 5.5;
-    const lfoGain = actx.createGain();
-    lfoGain.gain.value = 3;
-    this._lfo.connect(lfoGain);
-    lfoGain.connect(this._osc.frequency);
-    this._lfo.start();
-
-    // F1/F2/F3 バンドパスフィルタ
-    this._bpf = [0, 1, 2].map(() => {
-      const f = actx.createBiquadFilter();
-      f.type  = 'bandpass';
-      f.Q.value = 14;
-      return f;
-    });
-
-    // 高域ロールオフ
-    this._lp = actx.createBiquadFilter();
-    this._lp.type = 'lowpass';
-    this._lp.frequency.value = 4000;
-
-    const mix = actx.createGain();
-    mix.gain.value = 0.85;
+    this._osc = actx.createOscillator(); this._osc.type = 'sawtooth';
+    // ビブラート LFO
+    this._lfo = actx.createOscillator(); this._lfo.frequency.value = 5.5;
+    const lg = actx.createGain(); lg.gain.value = 3;
+    this._lfo.connect(lg); lg.connect(this._osc.frequency); this._lfo.start();
+    // F1/F2/F3 バンドパス
+    this._bpf = [0,1,2].map(() => { const f = actx.createBiquadFilter(); f.type='bandpass'; f.Q.value=14; return f; });
+    const lp = actx.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value=4000;
+    const mix = actx.createGain(); mix.gain.value = 0.85;
     this._bpf.forEach(f => { this._osc.connect(f); f.connect(mix); });
-    mix.connect(this._lp);
-    this._lp.connect(this._env);
-
-    this._osc.start();
-    this._applyVowel('ア', 0);
+    mix.connect(lp); lp.connect(this._env);
+    this._osc.start(); this._applyVowel('ア', 0);
   }
-
-  _applyVowel(v, time) {
-    const [f1, f2, f3] = FormantSynth.VOWELS[v] ?? FormantSynth.VOWELS['ア'];
-    this._bpf[0].frequency.setValueAtTime(f1, time);
-    this._bpf[1].frequency.setValueAtTime(f2, time);
-    this._bpf[2].frequency.setValueAtTime(f3, time);
+  _applyVowel(v, t) {
+    const [f1,f2,f3] = FormantSynth.VOWELS[v] ?? FormantSynth.VOWELS['ア'];
+    this._bpf[0].frequency.setValueAtTime(f1,t);
+    this._bpf[1].frequency.setValueAtTime(f2,t);
+    this._bpf[2].frequency.setValueAtTime(f3,t);
   }
-
-  triggerAttackRelease(note, durStr, time, vowel = 'ア') {
+  triggerAttackRelease(note, durStr, time, vowel='ア') {
     const freq = Tone.Frequency(note).toFrequency();
     const dur  = Tone.Time(durStr).toSeconds();
-    const atk  = Math.min(0.04, dur * 0.15);
-    const rel  = Math.min(0.07, dur * 0.2);
-
+    const atk  = Math.min(0.04, dur*0.15);
+    const rel  = Math.min(0.07, dur*0.2);
     this._osc.frequency.setValueAtTime(freq, time);
     this._applyVowel(vowel, time);
-
     this._env.gain.cancelScheduledValues(time);
     this._env.gain.setValueAtTime(0, time);
-    this._env.gain.linearRampToValueAtTime(this._vol, time + atk);
-    this._env.gain.setValueAtTime(this._vol * 0.82, time + dur - rel);
-    this._env.gain.linearRampToValueAtTime(0, time + dur);
+    this._env.gain.linearRampToValueAtTime(this._vol, time+atk);
+    this._env.gain.setValueAtTime(this._vol*0.82, time+dur-rel);
+    this._env.gain.linearRampToValueAtTime(0, time+dur);
   }
-
   dispose() {
-    try { this._osc.stop(); this._osc.disconnect(); } catch(e) {}
-    try { this._lfo.stop(); this._lfo.disconnect(); } catch(e) {}
-    try { this._env.disconnect(); } catch(e) {}
+    try { this._osc.stop(); this._osc.disconnect(); } catch(e){}
+    try { this._lfo.stop(); this._lfo.disconnect(); } catch(e){}
+    try { this._env.disconnect(); } catch(e){}
   }
 }
 
 /* ══════════════════════════════════════════
-   音楽データ
+   ヘルパー: イベント時刻を barOffset 小節分ずらす
    ══════════════════════════════════════════ */
-const LOOP_END = '4m';
+const shift = (evs, bars) => evs.map(ev => {
+  const [b, bt=0, s=0] = ev.time.split(':').map(Number);
+  return { ...ev, time:`${b+bars}:${bt}:${s}` };
+});
 
-const MELODY = [
-  {time:'0:0:0',note:'D4', dur:'16n'},{time:'0:0:1',note:'F#4',dur:'16n'},
-  {time:'0:0:2',note:'A4', dur:'16n'},{time:'0:0:3',note:'D5', dur:'8n'},
-  {time:'0:1:1',note:'C#5',dur:'16n'},{time:'0:1:2',note:'B4', dur:'16n'},
-  {time:'0:1:3',note:'A4', dur:'16n'},{time:'0:2:0',note:'F#4',dur:'8n'},
-  {time:'0:2:2',note:'G4', dur:'8n'}, {time:'0:3:0',note:'A4', dur:'4n'},
+/* ══════════════════════════════════════════
+   コード・ベース・サブ（16小節分をまとめて生成）
+   ══════════════════════════════════════════ */
+// [bar, bassRoot, bassFifth, padNotes]
+const ROOT_MAP = [
+  // Verse 1  D-A-Bm-G
+  [0,'D2','A2',['D3','F#3','A3','D4']],
+  [1,'A1','E2',['A2','E3','A3','C#4']],
+  [2,'B1','F#2',['B2','D3','F#3','B3']],
+  [3,'G1','D2',['G2','B2','D3','G3']],
+  // Verse 2  D-A-Bm-G
+  [4,'D2','A2',['D3','F#3','A3','D4']],
+  [5,'A1','E2',['A2','E3','A3','C#4']],
+  [6,'B1','F#2',['B2','D3','F#3','B3']],
+  [7,'G1','D2',['G2','B2','D3','G3']],
+  // Pre-Chorus  G-A-G-A
+  [8,'G1','D2',['G2','B2','D3','G3']],
+  [9,'A1','E2',['A2','C#3','E3','A3']],
+  [10,'G1','D2',['G2','B2','D3','G3']],
+  [11,'A1','E2',['A2','C#3','E3','A3']],
+  // Chorus  Bm-G-D-A
+  [12,'B1','F#2',['B2','D3','F#3','B3']],
+  [13,'G1','D2',['G2','B2','D3','G3']],
+  [14,'D2','A2',['D3','F#3','A3','D4']],
+  [15,'A1','E2',['A2','E3','A3','C#4']],
+];
 
-  {time:'1:0:0',note:'E5', dur:'8n'}, {time:'1:0:2',note:'D5', dur:'16n'},
-  {time:'1:0:3',note:'C#5',dur:'16n'},{time:'1:1:0',note:'A4', dur:'8n'},
-  {time:'1:1:2',note:'B4', dur:'16n'},{time:'1:1:3',note:'C#5',dur:'16n'},
-  {time:'1:2:0',note:'E5', dur:'8n'}, {time:'1:2:2',note:'D5', dur:'8n'},
+const CHORDS = ROOT_MAP.map(([bar,,,notes])=>({time:`${bar}:0:0`,notes}));
+
+const BASS = ROOT_MAP.flatMap(([bar,root,fifth])=>[
+  {time:`${bar}:0:0`,note:root,dur:'8n'},
+  {time:`${bar}:0:2`,note:root,dur:'16n'},
+  {time:`${bar}:1:0`,note:fifth,dur:'8n'},
+  {time:`${bar}:2:0`,note:root,dur:'8n'},
+  {time:`${bar}:2:2`,note:root,dur:'16n'},
+  {time:`${bar}:3:0`,note:fifth,dur:'8n'},
+]);
+
+const SUB = ROOT_MAP.map(([bar,root])=>({time:`${bar}:0:0`,note:root,dur:'1m'}));
+
+/* ══════════════════════════════════════════
+   メロディ（FMリード）
+   ══════════════════════════════════════════ */
+const MELODY_A = [
+  {time:'0:0:0',note:'D4',dur:'16n'},{time:'0:0:1',note:'F#4',dur:'16n'},
+  {time:'0:0:2',note:'A4',dur:'16n'},{time:'0:0:3',note:'D5',dur:'8n'},
+  {time:'0:1:1',note:'C#5',dur:'16n'},{time:'0:1:2',note:'B4',dur:'16n'},
+  {time:'0:1:3',note:'A4',dur:'16n'},{time:'0:2:0',note:'F#4',dur:'8n'},
+  {time:'0:2:2',note:'G4',dur:'8n'},{time:'0:3:0',note:'A4',dur:'4n'},
+  {time:'1:0:0',note:'E5',dur:'8n'},{time:'1:0:2',note:'D5',dur:'16n'},
+  {time:'1:0:3',note:'C#5',dur:'16n'},{time:'1:1:0',note:'A4',dur:'8n'},
+  {time:'1:1:2',note:'B4',dur:'16n'},{time:'1:1:3',note:'C#5',dur:'16n'},
+  {time:'1:2:0',note:'E5',dur:'8n'},{time:'1:2:2',note:'D5',dur:'8n'},
   {time:'1:3:0',note:'C#5',dur:'4n'},
-
-  {time:'2:0:0',note:'B4', dur:'8n'}, {time:'2:0:2',note:'D5', dur:'16n'},
-  {time:'2:0:3',note:'E5', dur:'16n'},{time:'2:1:0',note:'F#5',dur:'8n'},
-  {time:'2:1:2',note:'E5', dur:'16n'},{time:'2:1:3',note:'D5', dur:'16n'},
-  {time:'2:2:0',note:'C#5',dur:'16n'},{time:'2:2:1',note:'B4', dur:'16n'},
-  {time:'2:2:2',note:'A4', dur:'16n'},{time:'2:2:3',note:'G#4',dur:'16n'},
-  {time:'2:3:0',note:'A4', dur:'4n'},
-
-  {time:'3:0:0',note:'B4', dur:'8n'}, {time:'3:0:2',note:'D5', dur:'8n'},
-  {time:'3:1:0',note:'G5', dur:'8n'}, {time:'3:1:2',note:'F#5',dur:'16n'},
-  {time:'3:1:3',note:'E5', dur:'16n'},{time:'3:2:0',note:'D5', dur:'16n'},
-  {time:'3:2:1',note:'C#5',dur:'16n'},{time:'3:2:2',note:'B4', dur:'16n'},
-  {time:'3:2:3',note:'A4', dur:'16n'},{time:'3:3:0',note:'D5', dur:'4n'},
+  {time:'2:0:0',note:'B4',dur:'8n'},{time:'2:0:2',note:'D5',dur:'16n'},
+  {time:'2:0:3',note:'E5',dur:'16n'},{time:'2:1:0',note:'F#5',dur:'8n'},
+  {time:'2:1:2',note:'E5',dur:'16n'},{time:'2:1:3',note:'D5',dur:'16n'},
+  {time:'2:2:0',note:'C#5',dur:'16n'},{time:'2:2:1',note:'B4',dur:'16n'},
+  {time:'2:2:2',note:'A4',dur:'16n'},{time:'2:2:3',note:'G#4',dur:'16n'},
+  {time:'2:3:0',note:'A4',dur:'4n'},
+  {time:'3:0:0',note:'B4',dur:'8n'},{time:'3:0:2',note:'D5',dur:'8n'},
+  {time:'3:1:0',note:'G5',dur:'8n'},{time:'3:1:2',note:'F#5',dur:'16n'},
+  {time:'3:1:3',note:'E5',dur:'16n'},{time:'3:2:0',note:'D5',dur:'16n'},
+  {time:'3:2:1',note:'C#5',dur:'16n'},{time:'3:2:2',note:'B4',dur:'16n'},
+  {time:'3:2:3',note:'A4',dur:'16n'},{time:'3:3:0',note:'D5',dur:'4n'},
 ];
 
-const VOCAL = [
-  {time:'0:0:0',note:'D4', dur:'8n', vowel:'ア'},
-  {time:'0:0:2',note:'F#4',dur:'8n', vowel:'オ'},
-  {time:'0:1:0',note:'A4', dur:'4n', vowel:'ア'},
-  {time:'0:1:3',note:'A4', dur:'16n',vowel:'ア'},
-  {time:'0:2:2',note:'F#4',dur:'8n', vowel:'ウ'},
-  {time:'0:3:0',note:'G4', dur:'8n', vowel:'イ'},
-  {time:'0:3:2',note:'A4', dur:'8n', vowel:'エ'},
-  {time:'1:0:0',note:'E5', dur:'8n', vowel:'イ'},
-  {time:'1:0:2',note:'D5', dur:'4n', vowel:'ウ'},
-  {time:'1:2:0',note:'E5', dur:'4n', vowel:'ウ'},
-  {time:'1:3:0',note:'C#5',dur:'4n', vowel:'オ'},
-  {time:'2:0:0',note:'B4', dur:'8n', vowel:'ア'},
-  {time:'2:0:2',note:'D5', dur:'4n', vowel:'エ'},
-  {time:'2:1:2',note:'F#5',dur:'8n', vowel:'イ'},
-  {time:'2:2:0',note:'E5', dur:'8n', vowel:'イ'},
-  {time:'2:2:2',note:'D5', dur:'8n', vowel:'ア'},
-  {time:'2:3:0',note:'C#5',dur:'8n', vowel:'イ'},
-  {time:'2:3:2',note:'A4', dur:'8n', vowel:'ア'},
-  {time:'3:0:0',note:'B4', dur:'4n', vowel:'イ'},
-  {time:'3:2:0',note:'G5', dur:'4n', vowel:'ア'},
-  {time:'3:3:0',note:'D5', dur:'4n', vowel:'ア'},
+// Pre-chorus: G-A-G-A、上昇してクライマックスへ
+const MELODY_B = [
+  {time:'8:0:0',note:'G4',dur:'8n'},{time:'8:0:2',note:'A4',dur:'8n'},
+  {time:'8:1:0',note:'B4',dur:'4n'},{time:'8:2:0',note:'D5',dur:'8n'},
+  {time:'8:2:2',note:'C#5',dur:'8n'},{time:'8:3:0',note:'D5',dur:'4n'},
+  {time:'9:0:0',note:'E5',dur:'4n'},{time:'9:1:0',note:'D5',dur:'8n'},
+  {time:'9:1:2',note:'C#5',dur:'8n'},{time:'9:2:0',note:'B4',dur:'8n'},
+  {time:'9:2:2',note:'C#5',dur:'8n'},{time:'9:3:0',note:'E5',dur:'4n'},
+  {time:'10:0:0',note:'D5',dur:'8n'},{time:'10:0:2',note:'E5',dur:'8n'},
+  {time:'10:1:0',note:'F#5',dur:'4n'},{time:'10:2:0',note:'E5',dur:'8n'},
+  {time:'10:2:2',note:'D5',dur:'8n'},{time:'10:3:0',note:'G5',dur:'4n'},
+  {time:'11:0:0',note:'F#5',dur:'8n'},{time:'11:0:2',note:'E5',dur:'8n'},
+  {time:'11:1:0',note:'D5',dur:'4n'},{time:'11:2:0',note:'C#5',dur:'8n'},
+  {time:'11:2:2',note:'B4',dur:'8n'},{time:'11:3:0',note:'A4',dur:'8n'},
+  {time:'11:3:2',note:'E5',dur:'8n'},
 ];
 
-const STRINGS = [
-  {time:'0:0:0',notes:['D4','F#4'],dur:'2n'},
-  {time:'0:2:0',notes:['A4','D5'], dur:'2n'},
-  {time:'1:0:0',notes:['E4','A4'], dur:'2n'},
-  {time:'1:2:0',notes:['C#5','E5'],dur:'2n'},
-  {time:'2:0:0',notes:['B4','D5'], dur:'4n'},
-  {time:'2:1:0',notes:['F#5','A5'],dur:'4n'},
-  {time:'2:2:0',notes:['E5','G#5'],dur:'4n'},
-  {time:'2:3:0',notes:['D5','F#5'],dur:'4n'},
-  {time:'3:0:0',notes:['G4','B4'], dur:'4n'},
-  {time:'3:1:0',notes:['G5','B5'], dur:'4n'},
-  {time:'3:2:0',notes:['F#5','A5'],dur:'4n'},
-  {time:'3:3:0',notes:['D5','G5'], dur:'4n'},
+// Chorus: Bm-G-D-A、感情的なクライマックス
+const MELODY_C = [
+  {time:'12:0:0',note:'B4',dur:'8n'},{time:'12:0:2',note:'D5',dur:'16n'},
+  {time:'12:0:3',note:'E5',dur:'16n'},{time:'12:1:0',note:'F#5',dur:'4n'},
+  {time:'12:2:0',note:'E5',dur:'8n'},{time:'12:2:2',note:'D5',dur:'8n'},
+  {time:'12:3:0',note:'C#5',dur:'4n'},
+  {time:'13:0:0',note:'B4',dur:'8n'},{time:'13:0:2',note:'D5',dur:'8n'},
+  {time:'13:1:0',note:'E5',dur:'4n'},{time:'13:2:0',note:'D5',dur:'8n'},
+  {time:'13:2:2',note:'B4',dur:'8n'},{time:'13:3:0',note:'G5',dur:'4n'},
+  {time:'14:0:0',note:'F#5',dur:'4n'},{time:'14:1:0',note:'E5',dur:'8n'},
+  {time:'14:1:2',note:'D5',dur:'8n'},{time:'14:2:0',note:'C#5',dur:'8n'},
+  {time:'14:2:2',note:'D5',dur:'16n'},{time:'14:2:3',note:'E5',dur:'16n'},
+  {time:'14:3:0',note:'F#5',dur:'4n'},
+  {time:'15:0:0',note:'E5',dur:'4n'},{time:'15:1:0',note:'D5',dur:'8n'},
+  {time:'15:1:2',note:'C#5',dur:'8n'},{time:'15:2:0',note:'A4',dur:'4n'},
+  {time:'15:3:0',note:'D5',dur:'4n'},
 ];
 
-const CHORDS = [
-  {time:'0:0:0',notes:['D3','F#3','A3','D4']},
-  {time:'1:0:0',notes:['A2','E3','A3','C#4']},
-  {time:'2:0:0',notes:['B2','D3','F#3','B3']},
-  {time:'3:0:0',notes:['G2','B2','D3','G3']},
+const MELODY = [...MELODY_A, ...shift(MELODY_A,4), ...MELODY_B, ...MELODY_C];
+
+/* ══════════════════════════════════════════
+   ストリングス
+   ══════════════════════════════════════════ */
+const STRINGS_A = [
+  {time:'0:0:0',notes:['D4','F#4'],dur:'2n'},{time:'0:2:0',notes:['A4','D5'],dur:'2n'},
+  {time:'1:0:0',notes:['E4','A4'],dur:'2n'},{time:'1:2:0',notes:['C#5','E5'],dur:'2n'},
+  {time:'2:0:0',notes:['B4','D5'],dur:'4n'},{time:'2:1:0',notes:['F#5','A5'],dur:'4n'},
+  {time:'2:2:0',notes:['E5','G#5'],dur:'4n'},{time:'2:3:0',notes:['D5','F#5'],dur:'4n'},
+  {time:'3:0:0',notes:['G4','B4'],dur:'4n'},{time:'3:1:0',notes:['G5','B5'],dur:'4n'},
+  {time:'3:2:0',notes:['F#5','A5'],dur:'4n'},{time:'3:3:0',notes:['D5','G5'],dur:'4n'},
+];
+const STRINGS_B = [
+  {time:'8:0:0',notes:['G4','B4'],dur:'2n'},{time:'8:2:0',notes:['D5','G5'],dur:'2n'},
+  {time:'9:0:0',notes:['A4','C#5'],dur:'2n'},{time:'9:2:0',notes:['E5','A5'],dur:'2n'},
+  {time:'10:0:0',notes:['G4','B4'],dur:'4n'},{time:'10:1:0',notes:['B4','D5'],dur:'4n'},
+  {time:'10:2:0',notes:['D5','G5'],dur:'4n'},{time:'10:3:0',notes:['G5','B5'],dur:'4n'},
+  {time:'11:0:0',notes:['F#5','A5'],dur:'4n'},{time:'11:1:0',notes:['E5','G#5'],dur:'4n'},
+  {time:'11:2:0',notes:['D5','F#5'],dur:'4n'},{time:'11:3:0',notes:['C#5','E5'],dur:'4n'},
+];
+const STRINGS_C = [
+  {time:'12:0:0',notes:['B4','D5','F#5'],dur:'4n'},{time:'12:1:0',notes:['D5','F#5','A5'],dur:'4n'},
+  {time:'12:2:0',notes:['C#5','E5','A5'],dur:'4n'},{time:'12:3:0',notes:['B4','D5','F#5'],dur:'4n'},
+  {time:'13:0:0',notes:['G4','B4','D5'],dur:'4n'},{time:'13:1:0',notes:['B4','D5','G5'],dur:'4n'},
+  {time:'13:2:0',notes:['D5','G5','B5'],dur:'4n'},{time:'13:3:0',notes:['G5','B5'],dur:'4n'},
+  {time:'14:0:0',notes:['F#5','A5'],dur:'4n'},{time:'14:1:0',notes:['E5','A5'],dur:'4n'},
+  {time:'14:2:0',notes:['D5','F#5','A5'],dur:'4n'},{time:'14:3:0',notes:['E5','G#5','B5'],dur:'4n'},
+  {time:'15:0:0',notes:['E5','A5'],dur:'4n'},{time:'15:1:0',notes:['D5','F#5','A5'],dur:'4n'},
+  {time:'15:2:0',notes:['C#5','E5','A5'],dur:'4n'},{time:'15:3:0',notes:['D5','F#5','A5'],dur:'4n'},
+];
+const STRINGS = [...STRINGS_A, ...shift(STRINGS_A,4), ...STRINGS_B, ...STRINGS_C];
+
+/* ══════════════════════════════════════════
+   ボカロ（歌詞 + 母音付き）
+   ══════════════════════════════════════════ */
+// Verse 1: 春の風が吹いている / 夢の中で君に会いたい
+const VOCAL_A = [
+  {time:'0:0:0',note:'D4',dur:'8n',vowel:'ア'},
+  {time:'0:0:2',note:'F#4',dur:'8n',vowel:'オ'},
+  {time:'0:1:0',note:'A4',dur:'4n',vowel:'ア'},
+  {time:'0:1:3',note:'A4',dur:'16n',vowel:'ア'},
+  {time:'0:2:2',note:'F#4',dur:'8n',vowel:'ウ'},
+  {time:'0:3:0',note:'G4',dur:'8n',vowel:'イ'},
+  {time:'0:3:2',note:'A4',dur:'8n',vowel:'エ'},
+  {time:'1:0:0',note:'E5',dur:'8n',vowel:'イ'},
+  {time:'1:0:2',note:'D5',dur:'4n',vowel:'ウ'},
+  {time:'1:2:0',note:'E5',dur:'4n',vowel:'ウ'},
+  {time:'1:3:0',note:'C#5',dur:'4n',vowel:'オ'},
+  {time:'2:0:0',note:'B4',dur:'8n',vowel:'ア'},
+  {time:'2:0:2',note:'D5',dur:'4n',vowel:'エ'},
+  {time:'2:1:2',note:'F#5',dur:'8n',vowel:'イ'},
+  {time:'2:2:0',note:'E5',dur:'8n',vowel:'イ'},
+  {time:'2:2:2',note:'D5',dur:'8n',vowel:'ア'},
+  {time:'2:3:0',note:'C#5',dur:'8n',vowel:'イ'},
+  {time:'2:3:2',note:'A4',dur:'8n',vowel:'ア'},
+  {time:'3:0:0',note:'B4',dur:'4n',vowel:'イ'},
+  {time:'3:2:0',note:'G5',dur:'4n',vowel:'ア'},
+  {time:'3:3:0',note:'D5',dur:'4n',vowel:'ア'},
 ];
 
-const BASS = [
-  {time:'0:0:0',note:'D2',dur:'8n'},{time:'0:0:2',note:'D2',dur:'16n'},
-  {time:'0:1:0',note:'A2',dur:'8n'},{time:'0:2:0',note:'D2',dur:'8n'},
-  {time:'0:2:2',note:'D2',dur:'16n'},{time:'0:3:0',note:'A2',dur:'8n'},
-  {time:'1:0:0',note:'A1',dur:'8n'},{time:'1:0:2',note:'A1',dur:'16n'},
-  {time:'1:1:0',note:'E2',dur:'8n'},{time:'1:2:0',note:'A1',dur:'8n'},
-  {time:'1:2:2',note:'A1',dur:'16n'},{time:'1:3:0',note:'E2',dur:'8n'},
-  {time:'2:0:0',note:'B1',dur:'8n'},{time:'2:0:2',note:'B1',dur:'16n'},
-  {time:'2:1:0',note:'F#2',dur:'8n'},{time:'2:2:0',note:'B1',dur:'8n'},
-  {time:'2:2:2',note:'B1',dur:'16n'},{time:'2:3:0',note:'F#2',dur:'8n'},
-  {time:'3:0:0',note:'G1',dur:'8n'},{time:'3:0:2',note:'G1',dur:'16n'},
-  {time:'3:1:0',note:'D2',dur:'8n'},{time:'3:2:0',note:'G1',dur:'8n'},
-  {time:'3:2:2',note:'G1',dur:'16n'},{time:'3:3:0',note:'D2',dur:'8n'},
+// Verse 2: 遠く離れた空の下 / 君のことを想ってる
+const VOCAL_A2 = [
+  {time:'4:0:0',note:'D5',dur:'8n',vowel:'エ'},
+  {time:'4:0:2',note:'C#5',dur:'8n',vowel:'ウ'},
+  {time:'4:1:0',note:'B4',dur:'4n',vowel:'ア'},
+  {time:'4:2:0',note:'A4',dur:'4n',vowel:'エ'},
+  {time:'4:3:0',note:'G4',dur:'4n',vowel:'ア'},
+  {time:'5:0:0',note:'F#4',dur:'4n',vowel:'ア'},
+  {time:'5:1:0',note:'G4',dur:'8n',vowel:'オ'},
+  {time:'5:1:2',note:'A4',dur:'8n',vowel:'ア'},
+  {time:'5:3:0',note:'A4',dur:'4n',vowel:'イ'},
+  {time:'6:0:0',note:'A4',dur:'8n',vowel:'オ'},
+  {time:'6:0:2',note:'B4',dur:'8n',vowel:'オ'},
+  {time:'6:1:0',note:'A4',dur:'4n',vowel:'オ'},
+  {time:'6:2:0',note:'G4',dur:'4n',vowel:'オ'},
+  {time:'6:3:0',note:'F#4',dur:'4n',vowel:'オ'},
+  {time:'7:0:0',note:'E4',dur:'4n',vowel:'ウ'},
+  {time:'7:1:0',note:'F#4',dur:'4n',vowel:'エ'},
+  {time:'7:2:0',note:'A4',dur:'2n',vowel:'ウ'},
 ];
 
-const SUB = [
-  {time:'0:0:0',note:'D2',dur:'1m'},
-  {time:'1:0:0',note:'A2',dur:'1m'},
-  {time:'2:0:0',note:'B2',dur:'1m'},
-  {time:'3:0:0',note:'G2',dur:'1m'},
+// Pre-Chorus: 時は流れても / 変わらない気持ちよ
+const VOCAL_B = [
+  {time:'8:0:0',note:'G4',dur:'4n',vowel:'イ'},
+  {time:'8:1:0',note:'A4',dur:'4n',vowel:'ア'},
+  {time:'8:2:0',note:'B4',dur:'4n',vowel:'ア'},
+  {time:'8:3:0',note:'D5',dur:'4n',vowel:'エ'},
+  {time:'9:0:0',note:'E5',dur:'4n',vowel:'エ'},
+  {time:'9:1:0',note:'D5',dur:'2n',vowel:'オ'},
+  {time:'10:0:0',note:'D5',dur:'4n',vowel:'ア'},
+  {time:'10:1:0',note:'E5',dur:'4n',vowel:'ア'},
+  {time:'10:2:0',note:'F#5',dur:'4n',vowel:'ア'},
+  {time:'10:3:0',note:'G5',dur:'4n',vowel:'ア'},
+  {time:'11:0:0',note:'F#5',dur:'4n',vowel:'イ'},
+  {time:'11:1:0',note:'E5',dur:'4n',vowel:'イ'},
+  {time:'11:2:0',note:'D5',dur:'4n',vowel:'イ'},
+  {time:'11:3:0',note:'C#5',dur:'4n',vowel:'オ'},
 ];
 
+// Chorus: もう一度会いたい / 永遠に君のそばで
+const VOCAL_C = [
+  {time:'12:0:0',note:'B4',dur:'4n',vowel:'オ'},
+  {time:'12:1:0',note:'D5',dur:'4n',vowel:'ウ'},
+  {time:'12:2:0',note:'F#5',dur:'4n',vowel:'イ'},
+  {time:'12:3:0',note:'E5',dur:'4n',vowel:'オ'},
+  {time:'13:0:0',note:'D5',dur:'4n',vowel:'ア'},
+  {time:'13:1:0',note:'C#5',dur:'4n',vowel:'イ'},
+  {time:'13:2:0',note:'B4',dur:'4n',vowel:'ア'},
+  {time:'13:3:0',note:'G5',dur:'4n',vowel:'イ'},
+  {time:'14:0:0',note:'F#5',dur:'4n',vowel:'エ'},
+  {time:'14:1:0',note:'E5',dur:'4n',vowel:'エ'},
+  {time:'14:2:0',note:'D5',dur:'4n',vowel:'イ'},
+  {time:'14:3:0',note:'C#5',dur:'4n',vowel:'イ'},
+  {time:'15:0:0',note:'A4',dur:'4n',vowel:'オ'},
+  {time:'15:1:0',note:'B4',dur:'4n',vowel:'オ'},
+  {time:'15:2:0',note:'C#5',dur:'4n',vowel:'ア'},
+  {time:'15:3:0',note:'D5',dur:'4n',vowel:'エ'},
+];
+
+const VOCAL = [...VOCAL_A, ...VOCAL_A2, ...VOCAL_B, ...VOCAL_C];
+
+/* ══════════════════════════════════════════
+   歌詞テキスト表示用
+   ══════════════════════════════════════════ */
 const LYRICS = [
+  // Verse 1
   {time:'0:0:0',w:'春'},{time:'0:0:2',w:'の'},{time:'0:1:0',w:'風'},
   {time:'0:1:3',w:'が'},{time:'0:2:2',w:'吹'},{time:'0:3:0',w:'い'},
   {time:'0:3:2',w:'て'},{time:'1:0:0',w:'い'},{time:'1:0:2',w:'る'},
@@ -307,330 +407,312 @@ const LYRICS = [
   {time:'2:0:2',w:'で'},{time:'2:1:2',w:'君'},{time:'2:2:0',w:'に'},
   {time:'2:2:2',w:'会'},{time:'2:3:0',w:'い'},{time:'2:3:2',w:'た'},
   {time:'3:0:0',w:'い'},{time:'3:2:0',w:'〜'},
+  // Verse 2
+  {time:'4:0:0',w:'遠'},{time:'4:0:2',w:'く'},{time:'4:1:0',w:'離'},
+  {time:'4:2:0',w:'れ'},{time:'4:3:0',w:'た'},{time:'5:0:0',w:'空'},
+  {time:'5:1:0',w:'の'},{time:'5:1:2',w:'下'},{time:'5:3:0',w:'君'},
+  {time:'6:0:0',w:'の'},{time:'6:0:2',w:'こ'},{time:'6:1:0',w:'と'},
+  {time:'6:2:0',w:'を'},{time:'6:3:0',w:'想'},{time:'7:0:0',w:'っ'},
+  {time:'7:1:0',w:'て'},{time:'7:2:0',w:'る'},
+  // Pre-Chorus
+  {time:'8:0:0',w:'時'},{time:'8:1:0',w:'は'},{time:'8:2:0',w:'流'},
+  {time:'8:3:0',w:'れ'},{time:'9:0:0',w:'て'},{time:'9:1:0',w:'も'},
+  {time:'10:0:0',w:'変'},{time:'10:1:0',w:'わ'},{time:'10:2:0',w:'ら'},
+  {time:'10:3:0',w:'な'},{time:'11:0:0',w:'い'},{time:'11:1:0',w:'気'},
+  {time:'11:2:0',w:'持'},{time:'11:3:0',w:'ちよ'},
+  // Chorus
+  {time:'12:0:0',w:'も'},{time:'12:1:0',w:'う'},{time:'12:2:0',w:'一'},
+  {time:'12:3:0',w:'度'},{time:'13:0:0',w:'会'},{time:'13:1:0',w:'い'},
+  {time:'13:2:0',w:'た'},{time:'13:3:0',w:'い'},{time:'14:0:0',w:'永'},
+  {time:'14:1:0',w:'遠'},{time:'14:2:0',w:'に'},{time:'14:3:0',w:'君'},
+  {time:'15:0:0',w:'の'},{time:'15:1:0',w:'そ'},{time:'15:2:0',w:'ば'},
+  {time:'15:3:0',w:'で'},
 ];
 
 /* ══════════════════════════════════════════
-   オーディオグラフ（非同期 — Reverb の IR 生成を待つ）
+   セクション情報
    ══════════════════════════════════════════ */
-const TRACKS   = ['vocal','lead','strings','bass','sub','drum'];
-const muteState = Object.fromEntries(TRACKS.map(t => [t, false]));
-const flashLvl  = Object.fromEntries(TRACKS.map(t => [t, 0]));
+const SECTIONS = [
+  {bar:0, label:'Verse 1',    chords:['D','A','Bm','G']},
+  {bar:4, label:'Verse 2',    chords:['D','A','Bm','G']},
+  {bar:8, label:'Pre-Chorus', chords:['G','A','G','A']},
+  {bar:12,label:'Chorus',     chords:['Bm','G','D','A']},
+];
 
-let synths = {}, parts = [], fftAna = null, playing = false, rafId;
+function updateChordDisplay(bar) {
+  const sec = [...SECTIONS].reverse().find(s => s.bar <= bar) ?? SECTIONS[0];
+  const pos = bar - sec.bar;
+  document.getElementById('section-label').textContent = sec.label;
+  document.querySelectorAll('.cp').forEach((p,i) => {
+    p.textContent = sec.chords[i] ?? '';
+    p.classList.toggle('active', i === pos);
+  });
+}
+
+/* ══════════════════════════════════════════
+   オーディオグラフ（async — Reverb IR 生成を await）
+   ══════════════════════════════════════════ */
+const LOOP_END = '16m';
+const TRACKS   = ['vocal','lead','strings','bass','sub','drum'];
+const muteState = Object.fromEntries(TRACKS.map(t=>[t,false]));
+const flashLvl  = Object.fromEntries(TRACKS.map(t=>[t,0]));
+
+let synths={}, parts=[], fftAna=null, playing=false, rafId;
+let lyricTimes=[], loopSec=0;
 
 async function buildAudio() {
   const actx = Tone.getContext().rawContext;
-
-  // ── マスターバス ──
-  const comp  = new Tone.Compressor({ threshold: -18, ratio: 4, attack: 0.003, release: 0.1 });
+  const comp  = new Tone.Compressor({threshold:-18,ratio:4,attack:0.003,release:0.1});
   const limit = new Tone.Limiter(-1);
   comp.chain(limit, Tone.getDestination());
-
-  // FFT アナライザ（マスターからタップ）
   fftAna = new Tone.Analyser('fft', 32);
   limit.connect(fftAna);
 
-  // ── センドバス（IR 生成を並列 await）──
   const [room, hall, sht] = await Promise.all([
-    new Tone.Reverb({ decay: 1.8, wet: 0.22 }).generate(),
-    new Tone.Reverb({ decay: 3.5, wet: 0.30 }).generate(),
-    new Tone.Reverb({ decay: 0.5, wet: 0.18 }).generate(),
+    new Tone.Reverb({decay:1.8, wet:0.22}).generate(),
+    new Tone.Reverb({decay:3.5, wet:0.30}).generate(),
+    new Tone.Reverb({decay:0.5, wet:0.18}).generate(),
   ]);
-  room.connect(comp);
-  hall.connect(comp);
-  sht.connect(comp);
+  room.connect(comp); hall.connect(comp); sht.connect(comp);
 
-  // ── ボカロ（FormantSynth）──
-  // Tone.Gain.input は生の GainNode → FormantSynth の Web Audio 接続先として使える
+  // ボカロ — vocalGain.input は生の GainNode
   const vGain = new Tone.Gain(0.9).connect(room);
   synths.vocal = new FormantSynth(actx, vGain.input);
 
-  // ── FMリードシンセ ──
-  const ldDly = new Tone.FeedbackDelay({ delayTime: '8n', feedback: 0.26, wet: 0.22 }).connect(room);
+  // FMリード
+  const ldDly = new Tone.FeedbackDelay({delayTime:'8n',feedback:0.26,wet:0.22}).connect(room);
   synths.lead = new Tone.FMSynth({
-    harmonicity: 3.5, modulationIndex: 14,
-    oscillator: { type: 'sine' },
-    envelope: { attack: 0.01, decay: 0.08, sustain: 0.6, release: 0.35 },
-    modulation: { type: 'square' },
-    modulationEnvelope: { attack: 0.01, decay: 0.18, sustain: 0.25, release: 0.1 },
-    volume: -5,
+    harmonicity:3.5, modulationIndex:14,
+    oscillator:{type:'sine'},
+    envelope:{attack:0.01,decay:0.08,sustain:0.6,release:0.35},
+    modulation:{type:'square'},
+    modulationEnvelope:{attack:0.01,decay:0.18,sustain:0.25,release:0.1},
+    volume:-5,
   }).connect(ldDly);
 
-  // ── ストリングス（AMSynth + Vibrato + Chorus）──
-  const vibrato = new Tone.Vibrato({ frequency: 5.2, depth: 0.06, wet: 0.8 }).connect(hall);
-  const chorus  = new Tone.Chorus({ frequency: 3, delayTime: 3.5, depth: 0.4, wet: 0.5 }).start().connect(vibrato);
+  // ストリングス
+  const vibrato = new Tone.Vibrato({frequency:5.2,depth:0.06,wet:0.8}).connect(hall);
+  const chorus  = new Tone.Chorus({frequency:3,delayTime:3.5,depth:0.4,wet:0.5}).start().connect(vibrato);
   synths.strings = new Tone.PolySynth(Tone.AMSynth, {
-    harmonicity: 1.5,
-    oscillator: { type: 'sawtooth' },
-    envelope: { attack: 0.25, decay: 0.1, sustain: 0.75, release: 1.8 },
-    modulation: { type: 'sine' },
-    modulationEnvelope: { attack: 0.4, decay: 0, sustain: 1, release: 0.5 },
-    volume: -10,
+    harmonicity:1.5, oscillator:{type:'sawtooth'},
+    envelope:{attack:0.25,decay:0.1,sustain:0.75,release:1.8},
+    modulation:{type:'sine'},
+    modulationEnvelope:{attack:0.4,decay:0,sustain:1,release:0.5},
+    volume:-10,
   }).connect(chorus);
 
-  // ── コードパッド ──
+  // パッド
   synths.pad = new Tone.PolySynth(Tone.Synth, {
-    oscillator: { type: 'sine' },
-    envelope: { attack: 0.2, decay: 0.3, sustain: 0.5, release: 1.5 },
-    volume: -14,
+    oscillator:{type:'sine'},
+    envelope:{attack:0.2,decay:0.3,sustain:0.5,release:1.5},
+    volume:-14,
   }).connect(hall);
 
-  // ── ミッドベース ──
+  // ベース
   synths.bass = new Tone.MonoSynth({
-    oscillator: { type: 'sawtooth' },
-    filter: { frequency: 400, type: 'lowpass', rolloff: -24 },
-    filterEnvelope: { attack: 0.01, decay: 0.1, sustain: 0.4, release: 0.2, baseFrequency: 200, octaves: 2.5 },
-    envelope: { attack: 0.01, decay: 0.12, sustain: 0.55, release: 0.25 },
-    volume: -5,
+    oscillator:{type:'sawtooth'},
+    filter:{frequency:400,type:'lowpass',rolloff:-24},
+    filterEnvelope:{attack:0.01,decay:0.1,sustain:0.4,release:0.2,baseFrequency:200,octaves:2.5},
+    envelope:{attack:0.01,decay:0.12,sustain:0.55,release:0.25},
+    volume:-5,
   }).connect(comp);
 
-  // ── サブベース（サイン波で重低音）──
+  // サブ
   synths.sub = new Tone.Synth({
-    oscillator: { type: 'sine' },
-    envelope: { attack: 0.06, decay: 0.3, sustain: 0.7, release: 0.6 },
-    volume: -7,
+    oscillator:{type:'sine'},
+    envelope:{attack:0.06,decay:0.3,sustain:0.7,release:0.6},
+    volume:-7,
   }).connect(comp);
 
-  // ── ドラムキット ──
-  const kComp = new Tone.Compressor({ threshold: -12, ratio: 6 }).connect(comp);
-  synths.kick = new Tone.MembraneSynth({
-    pitchDecay: 0.06, octaves: 7,
-    envelope: { attack: 0.001, decay: 0.36, sustain: 0, release: 0.12 },
-    volume: 1,
-  }).connect(kComp);
-  synths.snare = new Tone.NoiseSynth({
-    noise: { type: 'white' },
-    envelope: { attack: 0.001, decay: 0.14, sustain: 0, release: 0.06 },
-    volume: -6,
-  }).connect(sht);
-  synths.hat = new Tone.MetalSynth({
-    frequency: 400, harmonicity: 5.1, modulationIndex: 32, resonance: 4200, octaves: 1.5,
-    envelope: { attack: 0.001, decay: 0.04, release: 0.01 }, volume: -16,
-  }).connect(comp);
-  synths.ohat = new Tone.MetalSynth({
-    frequency: 400, harmonicity: 5.1, modulationIndex: 32, resonance: 4200, octaves: 1.5,
-    envelope: { attack: 0.001, decay: 0.22, release: 0.06 }, volume: -18,
-  }).connect(sht);
+  // ドラム
+  const kComp = new Tone.Compressor({threshold:-12,ratio:6}).connect(comp);
+  synths.kick  = new Tone.MembraneSynth({pitchDecay:0.06,octaves:7,envelope:{attack:0.001,decay:0.36,sustain:0,release:0.12},volume:1}).connect(kComp);
+  synths.snare = new Tone.NoiseSynth({noise:{type:'white'},envelope:{attack:0.001,decay:0.14,sustain:0,release:0.06},volume:-6}).connect(sht);
+  synths.hat   = new Tone.MetalSynth({frequency:400,harmonicity:5.1,modulationIndex:32,resonance:4200,octaves:1.5,envelope:{attack:0.001,decay:0.04,release:0.01},volume:-16}).connect(comp);
+  synths.ohat  = new Tone.MetalSynth({frequency:400,harmonicity:5.1,modulationIndex:32,resonance:4200,octaves:1.5,envelope:{attack:0.001,decay:0.22,release:0.06},volume:-18}).connect(sht);
 }
 
 function disposeSynths() {
   if (synths.vocal) { synths.vocal.dispose(); }
-  Object.entries(synths).forEach(([k, s]) => {
-    if (k === 'vocal') return;
-    try { s.dispose?.(); } catch(e) {}
-  });
+  Object.entries(synths).forEach(([k,s]) => { if(k==='vocal')return; try{s.dispose?.();}catch(e){} });
   synths = {};
-  parts.forEach(p => { try { p.dispose?.(); } catch(e) {} });
-  parts = [];
-  if (fftAna) { try { fftAna.dispose(); } catch(e) {} fftAna = null; }
+  parts.forEach(p=>{ try{p.dispose?.();}catch(e){} }); parts=[];
+  if(fftAna){try{fftAna.dispose();}catch(e){} fftAna=null;}
 }
 
 /* ══════════════════════════════════════════
-   パート構築
+   パート
    ══════════════════════════════════════════ */
 function makePart(events, fn) {
   const p = new Tone.Part(fn, events);
-  p.loop = true; p.loopEnd = LOOP_END; p.start(0);
-  parts.push(p);
-}
-
-function flash(track) {
-  Tone.getDraw().schedule(() => { flashLvl[track] = 1; }, Tone.now());
+  p.loop=true; p.loopEnd=LOOP_END; p.start(0); parts.push(p);
 }
 
 function buildParts() {
-  makePart(VOCAL, (time, ev) => {
-    if (muteState.vocal) return;
-    synths.vocal.triggerAttackRelease(ev.note, ev.dur, time, ev.vowel);
-    Tone.getDraw().schedule(() => { flashLvl.vocal = 1; }, time);
+  makePart(VOCAL, (time,ev) => {
+    if(muteState.vocal) return;
+    synths.vocal.triggerAttackRelease(ev.note,ev.dur,time,ev.vowel);
+    Tone.getDraw().schedule(()=>{flashLvl.vocal=1;},time);
+  });
+  makePart(MELODY,(time,ev)=>{
+    if(muteState.lead) return;
+    synths.lead.triggerAttackRelease(ev.note,ev.dur,time);
+    Tone.getDraw().schedule(()=>{flashLvl.lead=1;},time);
+  });
+  makePart(STRINGS,(time,ev)=>{
+    if(muteState.strings) return;
+    synths.strings.triggerAttackRelease(ev.notes,ev.dur,time);
+    Tone.getDraw().schedule(()=>{flashLvl.strings=0.9;},time);
+  });
+  makePart(CHORDS,(time,ev)=>{
+    synths.pad.triggerAttackRelease(ev.notes,'2n.',time);
+  });
+  makePart(BASS,(time,ev)=>{
+    if(muteState.bass) return;
+    synths.bass.triggerAttackRelease(ev.note,ev.dur,time);
+    Tone.getDraw().schedule(()=>{flashLvl.bass=0.85;},time);
+  });
+  makePart(SUB,(time,ev)=>{
+    if(muteState.sub) return;
+    synths.sub.triggerAttackRelease(ev.note,ev.dur,time);
+    Tone.getDraw().schedule(()=>{flashLvl.sub=0.7;},time);
   });
 
-  makePart(MELODY, (time, ev) => {
-    if (muteState.lead) return;
-    synths.lead.triggerAttackRelease(ev.note, ev.dur, time);
-    Tone.getDraw().schedule(() => { flashLvl.lead = 1; }, time);
-  });
+  const drumSeq = new Tone.Sequence((time,step)=>{
+    if(muteState.drum) return;
+    if([0,8].includes(step))  synths.kick.triggerAttackRelease('C1','8n',time);
+    if([4,12].includes(step)) synths.snare.triggerAttackRelease('8n',time);
+    if([6,14].includes(step)) synths.ohat.triggerAttackRelease('16n',time);
+    else if(step%2===0)       synths.hat.triggerAttackRelease('32n',time);
+    if(step===9)              synths.snare.triggerAttackRelease('32n',time);
+    if([0,4,8,12].includes(step)) Tone.getDraw().schedule(()=>{flashLvl.drum=1;},time);
+  },[...Array(16).keys()],'16n');
+  drumSeq.start(0); parts.push(drumSeq);
 
-  makePart(STRINGS, (time, ev) => {
-    if (muteState.strings) return;
-    synths.strings.triggerAttackRelease(ev.notes, ev.dur, time);
-    Tone.getDraw().schedule(() => { flashLvl.strings = 1; }, time);
-  });
-
-  makePart(CHORDS, (time, ev) => {
-    synths.pad.triggerAttackRelease(ev.notes, '2n.', time);
-  });
-
-  makePart(BASS, (time, ev) => {
-    if (muteState.bass) return;
-    synths.bass.triggerAttackRelease(ev.note, ev.dur, time);
-    Tone.getDraw().schedule(() => { flashLvl.bass = 0.9; }, time);
-  });
-
-  makePart(SUB, (time, ev) => {
-    if (muteState.sub) return;
-    synths.sub.triggerAttackRelease(ev.note, ev.dur, time);
-    Tone.getDraw().schedule(() => { flashLvl.sub = 0.7; }, time);
-  });
-
-  // ドラム（16ステップ）
-  const drumSeq = new Tone.Sequence((time, step) => {
-    if (muteState.drum) return;
-    if ([0, 8].includes(step))  synths.kick.triggerAttackRelease('C1', '8n', time);
-    if ([4, 12].includes(step)) synths.snare.triggerAttackRelease('8n', time);
-    if ([6, 14].includes(step)) synths.ohat.triggerAttackRelease('16n', time);
-    else if (step % 2 === 0)    synths.hat.triggerAttackRelease('32n', time);
-    if (step === 9) synths.snare.triggerAttackRelease('32n', time); // ghost
-    if ([0, 4, 8, 12].includes(step)) Tone.getDraw().schedule(() => { flashLvl.drum = 1; }, time);
-  }, [...Array(16).keys()], '16n');
-  drumSeq.start(0);
-  parts.push(drumSeq);
-
-  // コード表示
-  const cpPart = new Tone.Part((time, ev) => {
-    Tone.getDraw().schedule(() => {
-      document.querySelectorAll('.cp').forEach(p => p.classList.remove('active'));
-      document.getElementById('cp-' + ev.i)?.classList.add('active');
-    }, time);
-  }, [{time:'0:0:0',i:0},{time:'1:0:0',i:1},{time:'2:0:0',i:2},{time:'3:0:0',i:3}]);
-  cpPart.loop = true; cpPart.loopEnd = LOOP_END; cpPart.start(0);
-  parts.push(cpPart);
+  // 小節ごとのコード/セクション表示
+  const barEvents = ROOT_MAP.map(([bar])=>({time:`${bar}:0:0`,bar}));
+  const cpPart = new Tone.Part((time,ev)=>{
+    Tone.getDraw().schedule(()=>updateChordDisplay(ev.bar), time);
+  }, barEvents);
+  cpPart.loop=true; cpPart.loopEnd=LOOP_END; cpPart.start(0); parts.push(cpPart);
 }
 
 /* ══════════════════════════════════════════
    再生 / 停止
    ══════════════════════════════════════════ */
 async function startPlayback() {
-  if (playing) return;
+  if(playing) return;
   await Tone.start();
-
   const btn = document.getElementById('btn-play');
-  btn.textContent = '生成中...';
-  btn.style.opacity = '0.5';
-  document.getElementById('status').textContent = 'リバーブ生成中...';
+  btn.textContent='生成中...'; btn.style.opacity='0.5';
+  document.getElementById('status').textContent='リバーブ生成中...';
 
   Tone.Transport.bpm.value = parseInt(document.getElementById('sl-bpm').value);
-  Tone.Transport.loop      = true;
-  Tone.Transport.loopStart = 0;
-  Tone.Transport.loopEnd   = LOOP_END;
+  Tone.Transport.loop=true; Tone.Transport.loopStart=0; Tone.Transport.loopEnd=LOOP_END;
 
   await buildAudio();
-  buildParts();
 
+  // BPM確定後に歌詞タイムをキャッシュ
+  loopSec = Tone.Time(LOOP_END).toSeconds();
+  lyricTimes = LYRICS.map(l=>Tone.Time(l.time).toSeconds());
+
+  buildParts();
   Tone.Transport.start();
-  playing = true;
-  btn.textContent = '▶ 再生';
-  btn.style.opacity = '0.45';
-  document.getElementById('status').textContent = '再生中 ▶';
+  playing=true;
+  btn.textContent='▶ 再生'; btn.style.opacity='0.45';
+  document.getElementById('status').textContent='再生中 ▶';
   tick();
 }
 
 function stopPlayback() {
-  if (!playing) return;
-  playing = false;
+  if(!playing) return;
+  playing=false;
   cancelAnimationFrame(rafId);
-  Tone.Transport.stop();
-  Tone.Transport.cancel();
+  Tone.Transport.stop(); Tone.Transport.cancel();
   disposeSynths();
-  document.querySelectorAll('.cp').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.lw').forEach(p => p.classList.remove('lit'));
-  document.getElementById('prog').style.width = '0%';
-  document.getElementById('btn-play').style.opacity = '1';
-  document.getElementById('btn-play').textContent = '▶ 再生';
-  document.getElementById('status').textContent = '停止中';
-  vizBars.forEach(b => b.style.height = '2px');
-  TRACKS.forEach(t => { flashLvl[t] = 0; });
+  document.getElementById('section-label').textContent='—';
+  document.querySelectorAll('.cp').forEach(p=>{p.classList.remove('active');});
+  document.getElementById('prog').style.width='0%';
+  document.getElementById('btn-play').style.opacity='1';
+  document.getElementById('btn-play').textContent='▶ 再生';
+  document.getElementById('status').textContent='停止中';
+  document.getElementById('ly-curr').textContent='♪';
+  document.getElementById('ly-prev').textContent='';
+  document.getElementById('ly-next').textContent='';
+  vizBars.forEach(b=>b.style.height='2px');
+  TRACKS.forEach(t=>{flashLvl[t]=0;});
+  updateChordDisplay(0);
 }
 
 /* ══════════════════════════════════════════
    アニメーションループ
    ══════════════════════════════════════════ */
 function tick() {
-  if (!playing) return;
+  if(!playing) return;
   rafId = requestAnimationFrame(tick);
 
-  const loopSec = Tone.Time(LOOP_END).toSeconds();
-  const pos     = Tone.Transport.seconds % loopSec;
+  const pos = Tone.Transport.seconds % loopSec;
+  document.getElementById('prog').style.width = (pos/loopSec*100)+'%';
 
-  // プログレスバー
-  document.getElementById('prog').style.width = (pos / loopSec * 100) + '%';
+  // 歌詞スライドウィンドウ (前 | 現在 | 次)
+  let cur = -1;
+  for(let i=0;i<lyricTimes.length;i++){
+    const end = lyricTimes[i+1]??loopSec;
+    if(pos>=lyricTimes[i]&&pos<end){cur=i;break;}
+  }
+  document.getElementById('ly-prev').textContent = cur>0 ? LYRICS[cur-1].w : '';
+  document.getElementById('ly-curr').textContent = cur>=0 ? LYRICS[cur].w : '♪';
+  document.getElementById('ly-next').textContent = cur>=0&&cur<LYRICS.length-1 ? LYRICS[cur+1].w : '';
 
-  // 歌詞ハイライト
-  const ltimes = LYRICS.map(l => Tone.Time(l.time).toSeconds());
-  LYRICS.forEach((l, i) => {
-    const s = ltimes[i], e = ltimes[i + 1] ?? loopSec;
-    document.getElementById('lw' + i)?.classList.toggle('lit', pos >= s && pos < e);
-  });
-
-  // FFT ビジュアライザ
-  if (fftAna) {
-    const vals = fftAna.getValue();
-    vizBars.forEach((b, i) => {
-      if (i >= vals.length) return;
-      const db   = vals[i];
-      const norm = isFinite(db) ? Math.max(0, Math.min(1, (db + 80) / 80)) : 0;
-      b.style.height = (2 + norm * 70) + 'px';
-      const r  = Math.round(18  + norm * 237);
-      const g  = Math.round(18  + norm * 92);
-      const bl = Math.round(42  + norm * 138);
-      b.style.background = `rgb(${r},${g},${bl})`;
+  // FFT
+  if(fftAna){
+    const vals=fftAna.getValue();
+    vizBars.forEach((b,i)=>{
+      if(i>=vals.length)return;
+      const db=vals[i];
+      const n=isFinite(db)?Math.max(0,Math.min(1,(db+80)/80)):0;
+      b.style.height=(2+n*70)+'px';
+      b.style.background=`rgb(${Math.round(18+n*237)},${Math.round(18+n*92)},${Math.round(42+n*138)})`;
     });
   }
 
-  // トラックメーター（トリガー起点フラッシュ + 減衰）
-  const meterIds = {vocal:'mv-vocal', lead:'mv-lead', strings:'mv-str', bass:'mv-bass', sub:'mv-sub', drum:'mv-drum'};
-  TRACKS.forEach(t => {
-    flashLvl[t] = Math.max(0, flashLvl[t] - 0.04);
-    const el = document.getElementById(meterIds[t]);
-    if (el) el.style.height = (flashLvl[t] * 100) + '%';
+  // メーター
+  const mids={vocal:'mv-vocal',lead:'mv-lead',strings:'mv-str',bass:'mv-bass',sub:'mv-sub',drum:'mv-drum'};
+  TRACKS.forEach(t=>{
+    flashLvl[t]=Math.max(0,flashLvl[t]-0.04);
+    const el=document.getElementById(mids[t]);
+    if(el) el.style.height=(flashLvl[t]*100)+'%';
   });
 }
 
 /* ══════════════════════════════════════════
-   UI 構築
+   UI
    ══════════════════════════════════════════ */
-
-// FFT バー
-const vizEl   = document.getElementById('viz');
-const vizBars = [];
-for (let i = 0; i < 32; i++) {
-  const b = document.createElement('div');
-  b.className = 'vbar'; b.style.height = '2px';
+const vizEl=document.getElementById('viz'), vizBars=[];
+for(let i=0;i<32;i++){
+  const b=document.createElement('div'); b.className='vbar'; b.style.height='2px';
   vizEl.appendChild(b); vizBars.push(b);
 }
 
-// 歌詞
-(function() {
-  const el = document.getElementById('lyrics');
-  LYRICS.forEach((l, i) => {
-    const s = document.createElement('span');
-    s.className = 'lw'; s.id = 'lw' + i; s.textContent = l.w;
-    el.appendChild(s);
-  });
-})();
-
-// ミュートボタン
-(function() {
-  const wrap   = document.getElementById('mutes');
-  const labels = {vocal:'Vocal', lead:'Lead', strings:'Strings', bass:'Bass', sub:'Sub', drum:'Drum'};
-  TRACKS.forEach(t => {
-    const btn = document.createElement('button');
-    btn.className = 'mb on';
-    btn.textContent = labels[t];
-    btn.addEventListener('click', () => {
-      muteState[t] = !muteState[t];
-      btn.classList.toggle('on', !muteState[t]);
-    });
+(function(){
+  const wrap=document.getElementById('mutes');
+  const lbls={vocal:'Vocal',lead:'Lead',strings:'Strings',bass:'Bass',sub:'Sub',drum:'Drum'};
+  TRACKS.forEach(t=>{
+    const btn=document.createElement('button'); btn.className='mb on'; btn.textContent=lbls[t];
+    btn.addEventListener('click',()=>{ muteState[t]=!muteState[t]; btn.classList.toggle('on',!muteState[t]); });
     wrap.appendChild(btn);
   });
 })();
 
 document.getElementById('btn-play').addEventListener('click', startPlayback);
 document.getElementById('btn-stop').addEventListener('click', stopPlayback);
-document.getElementById('sl-bpm').addEventListener('input', function() {
-  document.getElementById('bpm-val').textContent = this.value;
-  if (playing) Tone.Transport.bpm.value = parseInt(this.value);
+document.getElementById('sl-bpm').addEventListener('input', function(){
+  document.getElementById('bpm-val').textContent=this.value;
+  if(playing) Tone.Transport.bpm.value=parseInt(this.value);
 });
+
+// 初期コード表示
+updateChordDisplay(0);
 </script>
 </body>
 </html>
